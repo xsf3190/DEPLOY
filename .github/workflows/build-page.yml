@@ -26,14 +26,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      # Install node_modules
+      - run: npm install
+
       #  Transpile typesript
       - run: npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile .TEMPLATES/$TEMPLATE/index.js
 
       #  Insert url for fetch form 
       - run: sed -i -e "s#CONTACT_ENDPOINT#$CONTACT_ENDPOINT#g" ./TEMPLATES/$TEMPLATE/index.js
-
-      # Install node_modules
-      - run: npm install
 
       #  Build with Eleventy
       - run: npx @11ty/eleventy
