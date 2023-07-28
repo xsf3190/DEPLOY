@@ -1,0 +1,24 @@
+{
+  "name": "beleiveintalking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "no",
+  "scripts": {
+    "local": "npx @11ty/eleventy --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "no"
+  },
+  "keywords": [
+    "no"
+  ],
+  "author": "Mark Brown + Florent Meijer",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@types/node": "^20.4.2",
+    "dotenv": "^16.3.1",
+    "typescript": "^5.1.3"
+  }
+}

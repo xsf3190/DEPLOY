@@ -1,0 +1,51 @@
+---
+layout: base.njk
+pagination:
+    data: collections.pages
+    size: 1
+    alias: page
+permalink: /{{ page.path_name | slugify }}.html
+---
+    {% for p in pagination.items %}
+        <header>
+            {% if p.path_name == collections.pages[0].path_name %}
+                <img class="keepOpenImage" src="/icon.svg" alt="Believe in Talking Logo">
+            {% else  %}
+                <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
+            {% endif %}
+        </header>
+        <main>
+            {% if page.url == "/contact.html" %}
+                <section class="noBorder">
+                    {{ p.text | safe }}
+                </section>
+                <form>
+                    <label for="nameInput">Name</label>
+                    <input type="text" id="nameInput" name="name" required="" minlength="1" maxlength="50" />
+                    <label for="emailInput">Email</label>
+                    <input type="email" id="emailInput" name="email" required="" maxlength="50" />
+                    <label for="messageInput">Message</label>
+                    <textarea id="messageInput" name="message" required="" minlength="1" maxlength="400"></textarea>
+                    <span>No Notification</span>
+                    <button type="submit">Send</button>
+                </form>
+            {% elif p.path_name == collections.pages[0].path_name %}
+                <section class="noBorder">
+                    {{ p.text | safe }}
+                </section>
+                <div class="image-nav">
+                    {%- for pageNav in collections.pages -%}
+                        {% if loop.index0 != 0 %}
+                                <a href="/{{pageNav.path_name}}.html">
+                                    <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" />
+                                    <span>{{ pageNav.nav_name }}</span>
+                                </a>
+                        {% endif %}
+                    {%- endfor -%}
+                </div>
+            {% else %}
+                <section>
+                    {{ p.text | safe }}
+                </section>
+            {% endif %}
+    {% endfor %}

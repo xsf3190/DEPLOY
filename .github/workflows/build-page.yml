@@ -1,0 +1,47 @@
+name: Build page
+on: 
+  workflow_dispatch:
+  repository_dispatch:
+    types: trigger_build
+permissions:
+  contents: write
+env:
+  CONTACT_ENDPOINT: ${{ vars.API_BELIEVEINTALKING }}
+  BUILD_PATH: ${{ github.event.client_payload.build_path }}
+  TEMPLATE: ${{ github.event.client_payload.template }}
+jobs:
+  build_page:
+    name: Build page
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      # Get latest updates repo
+      - uses: actions/checkout@v3
+
+      # Install node
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      #  Transpile typesript
+      - run: npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile .TEMPLATES/$TEMPLATE/index.js
+
+      #  Insert url for fetch form 
+      - run: sed -i -e "s#CONTACT_ENDPOINT#$CONTACT_ENDPOINT#g" ./TEMPLATES/$TEMPLATE/index.js
+
+      # Install node_modules
+      - run: npm install
+
+      #  Build with Eleventy
+      - run: npx @11ty/eleventy
+
+      # Git push build
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ./$BUILD_PATH/*
+          git commit -m build
+          git push
