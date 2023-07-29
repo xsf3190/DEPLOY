@@ -40,21 +40,35 @@
             
         <header>
             
-                <img class="keepOpenImage" src="/icon.svg" alt="Believe in Talking Logo">
+                <img class="closedImage" src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_640/IMG-20230601-WA0017_vuixhn" alt="">
             
         </header>
         <main>
             
-                <section class="noBorder">
-                    <h1>Ideal Gifts</h1><p>Ever <u>wondered</u> what to buy <u>someone</u> for a Christmas or birthday gift?&nbsp;</p><hr><pre><code class="language-css">
-For something unique and personal you could offer a beautiful painting in acrylics of a favoured pet or relative.</code></pre><p>Just use the form below to upload your best photos of the subject so we can talk about the personality you want captured as well as delivery date, portrait dimensions and price. As a guide, none of the paintings shown here cost more than 150 pounds.<br>Once we're agreed, pay a 50% deposit using the form below and we'll start painting.<br>We'll email you a scanned photo of the completed painting for your approval before sending it by Royal Mail rolled in a strengthened cardboard tube together with an invoice for the balance.</p><p>adding any words</p>
+                <section>
+                    <h1>Markdown Button</h1><p>This relates to APEX's Rich Text Editor item.&nbsp;</p><p>Add this code to the item's Initialization Javascript Function to add a custom button to the editor's toolbar. In this example the custom button is assigned the class “save-and-exit” allowing us to style it and create an event listener in our page Javascript code.</p><pre><code class="language-javascript">function (options) {
+	class CustomButton extends ClassicEditor.libraryClasses.Plugin {
+	    init(){
+	    	const editor = this.editor;
+	    	editor.ui.componentFactory.add('customButton', locale =&gt; {
+	    		const view = new ClassicEditor.libraryClasses.ButtonView(locale);
+	    		view.set({
+	    			label: 'Save &amp; Exit',
+	    			withText: true,
+	    			tooltip: true,
+	    			class: 'save-and-exit'
+	    		});
+	    		view.on('execute', () =&gt; {
+	    			save_and_exit();
+	    		});
+	    		return view;
+	    	});
+	    }
+	}
+	options.editorOptions.extraPlugins.push(CustomButton);
+	options.editorOptions.toolbar.push('customButton');
+}</code></pre>
                 </section>
-                <div class="image-nav">
-                                <a href="/page20025.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_640/IMG-20230601-WA0017_vuixhn" alt="" />
-                                    <span>navigate to 20025</span>
-                                </a>
-                        </div>
             
     
         <footer>
@@ -109,10 +123,6 @@ For something unique and personal you could offer a beautiful painting in acryli
             <a class="hoverScale" href="/index.html">
                 <img src="/favicon.svg" alt="Believe In Talking Favicon" />
             </a>
-        
-    
-        
-            <a href="/page20025.html">navigate to 20025</a>
         
     </nav>
     <button>
