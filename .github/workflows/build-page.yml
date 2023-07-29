@@ -6,10 +6,10 @@ on:
 permissions:
   contents: write
 env:
-  FETCH_URL: ${{ vars.FETCH_URL }}
   CONTACT_ENDPOINT: ${{ vars.API_BELIEVEINTALKING }}
   BUILD_PATH: ${{ github.event.client_payload.build_path }}
   TEMPLATE: ${{ github.event.client_payload.template }}
+  FETCH_URL: ${{ github.event.client_payload.fetch_url }}
 jobs:
   build_page:
     name: Build page
