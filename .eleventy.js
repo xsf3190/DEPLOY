@@ -5,7 +5,7 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addCollection("pages", async () => {
 
         try {
-            answer = await fetch("https://hl7offzwezq2cal-db202103270929.adb.uk-london-1.oraclecloudapps.com/ords/api/public/content/believeintalking.com", {
+            answer = await fetch(process.env.FETCH_URL, {
                 method: 'GET',
             });
             result = await answer.json();
