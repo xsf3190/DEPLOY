@@ -9,6 +9,7 @@ module.exports = (eleventyConfig) => {
                 method: 'GET',
             });
             result = await answer.json();
+            console.log("result",result);
             return result;
         } catch (err) {
             console.log("error while fetching website parts: ", err);
