@@ -10,14 +10,13 @@
     <link rel="apple-touch-icon" href="favicon-180x180.png">
     <link rel="manifest" href="manifest.webmanifest">
 
-    <link rel="stylesheet" href="{{ "style.css" | addCss }}">
+    <link rel="stylesheet" href="style.css?v=1690648563829">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
     <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100;400&display=swap" rel="stylesheet">
 
-    <title>{{ title }}</title>
-    <meta name="generator" content="{{ eleventy.generator }}">
+    <title></title>
     <meta name="description" content="Believe in Talking">
     <meta name="keywords" content="counseling">
     <meta name="author" content="Anna Brown">
@@ -38,7 +37,26 @@
 
 <body>
     <div>
-        {{ content | safe }}
+            
+        <header>
+            
+                <img class="keepOpenImage" src="/icon.svg" alt="Believe in Talking Logo">
+            
+        </header>
+        <main>
+            
+                <section class="noBorder">
+                    <h1>Ideal Gifts</h1><p>Ever <u>wondered</u> what to buy <u>someone</u> for a Christmas or birthday gift?&nbsp;</p><hr><pre><code class="language-css">
+For something unique and personal you could offer a beautiful painting in acrylics of a favoured pet or relative.</code></pre><p>Just use the form below to upload your best photos of the subject so we can talk about the personality you want captured as well as delivery date, portrait dimensions and price. As a guide, none of the paintings shown here cost more than 150 pounds.<br>Once we're agreed, pay a 50% deposit using the form below and we'll start painting.<br>We'll email you a scanned photo of the completed painting for your approval before sending it by Royal Mail rolled in a strengthened cardboard tube together with an invoice for the balance.</p><p>adding any words</p>
+                </section>
+                <div class="image-nav">
+                                <a href="/page20025.html">
+                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_640/IMG-20230601-WA0017_vuixhn" alt="" />
+                                    <span>navigate to 20025</span>
+                                </a>
+                        </div>
+            
+    
         <footer>
             <a id="BACP-member" href="https://www.bacp.co.uk/">
                 <img src="BACP-Logo-399856.png" alt="BACP Logo" />
@@ -87,17 +105,15 @@
         </footer>
     </div>
     <nav>
-{%- for p in collections.pages -%}
-    {% if p.path_name not in page.url %}
-        {% if loop.index0 == 0 %}
-            <a class="hoverScale" href="/{{p.path_name}}.html">
+        
+            <a class="hoverScale" href="/index.html">
                 <img src="/favicon.svg" alt="Believe In Talking Favicon" />
             </a>
-        {% else %}
-            <a href="/{{p.path_name}}.html">{{ p.nav_name }}</a>
-        {% endif %}
-    {% endif %}
-{%- endfor -%}
+        
+    
+        
+            <a href="/page20025.html">navigate to 20025</a>
+        
     </nav>
     <button>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 297">
@@ -123,7 +139,7 @@
             </g>
         </svg>
     </button>
-    <script src={{ "index.js" | addScript }}></script>
+    <script src=index.js?v=1690648563829></script>
 </body>
 
 </html>
