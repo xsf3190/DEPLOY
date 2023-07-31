@@ -4,7 +4,7 @@ module.exports = async function() {
             method: 'GET',
         });
         result = await answer.json();
-        return result;
+        return { "articles": result};
     } catch (err) {
         console.log("error while fetching website parts: ", err);
     }
