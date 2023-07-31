@@ -44,7 +44,7 @@ permalink: /{{ page.path_name | slugify }}.html
                     {%- endfor -%}
                 </div>
             {% else %}
-                <section>
+                <section class="redBorder">
                     {{ p.text | safe }}
                 </section>
             {% endif %}

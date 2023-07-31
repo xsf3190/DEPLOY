@@ -35,8 +35,7 @@ body {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 1fr;
-
-    background-color: pink;
+    /* comment to force change */
 }
 
 button {
@@ -179,6 +178,8 @@ main>section img {
     width: 10rem;
     max-width: 85%;
     border-radius: 1rem;
+    margin: auto;
+    display:block;
 }
 
 @media only screen and (min-width: 768px) {

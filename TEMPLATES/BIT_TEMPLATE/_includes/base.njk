@@ -91,7 +91,7 @@
     {% if p.path_name not in page.url %}
         {% if loop.index0 == 0 %}
             <a class="hoverScale" href="/{{p.path_name}}.html">
-                <img src="/favicon.svg" alt="Believe In Talking Favicon" />
+                <img src="{{ fetched.website.favicon_url }}" alt="Website brand logo" />
             </a>
         {% else %}
             <a href="/{{p.path_name}}.html">{{ p.nav_name }}</a>
