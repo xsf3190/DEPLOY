@@ -87,7 +87,7 @@
         </footer>
     </div>
     <nav>
-{%- for p in collections.pages -%}
+{%- for p in fetched.articles -%}
     {% if p.path_name not in page.url %}
         {% if loop.index0 == 0 %}
             <a class="hoverScale" href="/{{p.path_name}}.html">
