@@ -5,8 +5,8 @@ module.exports = async function() {
         answer = await fetch(process.env.FETCH_URL, {
             method: 'GET',
         });
-        result = await answer.json();
-        return { "articles": result};
+        const result = await answer.json();
+        return result;
     } catch (err) {
         console.log("error while fetching website parts: ", err);
     }
