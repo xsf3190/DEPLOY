@@ -8,7 +8,7 @@ permalink: /{{ page.path_name | slugify }}.html
 ---
     {% for p in pagination.items %}
         <header>
-            {{ p }}
+            {{ p.text | safe }}
         </header>
         {# <header>
             {% if p.path_name == collections.pages[0].path_name %}
