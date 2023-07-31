@@ -35,6 +35,8 @@ body {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 1fr;
+
+    background-color: pink;
 }
 
 button {
