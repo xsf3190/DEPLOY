@@ -8,8 +8,8 @@ permalink: /{{ page.path_name | slugify }}.html
 ---
     {% for p in pagination.items %}
         <header>
-            {% if p.path_name == collections.pages[0].path_name %}
-                <img class="keepOpenImage" src="/icon.svg" alt="Believe in Talking Logo">
+            {% if loop.index0 == 0 %}
+                <img class="keepOpenImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
             {% else  %}
                 <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
             {% endif %}
@@ -29,12 +29,12 @@ permalink: /{{ page.path_name | slugify }}.html
                     <span>No Notification</span>
                     <button type="submit">Send</button>
                 </form>
-            {% elif p.path_name == collections.pages[0].path_name %}
+            {% elif loop.index0 == 0 %}
                 <section class="noBorder">
                     {{ p.text | safe }}
                 </section>
                 <div class="image-nav">
-                    {%- for pageNav in collections.pages -%}
+                    {%- for pageNav in fetched.articles -%}
                         {% if loop.index0 != 0 %}
                                 <a href="/{{pageNav.path_name}}.html">
                                     <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" />
