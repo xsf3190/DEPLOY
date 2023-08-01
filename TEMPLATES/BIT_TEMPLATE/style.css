@@ -35,7 +35,7 @@ body {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 1fr;
-    /* comment to force change */
+    /* comment to force changes */
 }
 
 button {
@@ -84,6 +84,7 @@ ul {
 h1 {
     font-size: var(--font-size-lg);
     font-weight: 400;
+    text-align: center;
 }
 
 section>span {
@@ -490,6 +491,10 @@ footer>div:nth-of-type(2) {
     align-self: end;
     justify-self: start;
     cursor: default;
+}
+
+footer>div:nth-of-type(2)>span+span {
+    margin-left: 0.3ch;
 }
 
 footer>a {

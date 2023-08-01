@@ -40,19 +40,19 @@
     <div>
         {{ content | safe }}
         <footer>
-            <a id="BACP-member" href="https://www.bacp.co.uk/">
-                <img src="BACP-Logo-399856.png" alt="BACP Logo" />
+            <a target="_blank" href="{{ fetched.website.affiliation_link_url }}">
+                <img src="{{ fetched.website.affiliation_link_img }}" alt="Trade affiliation Logo" />
             </a>
             <div>
                 <a href="index.html">
-                    <img src="/favicon.svg" alt="Believe In Talking Favicon" />
+                    <img src="{{ fetched.website.favicon_url }}" alt="Believe In Talking Favicon" />
                 </a>
-                <a id="email" href="mailTo:believeintalking@hotmail.com">BelieveInTalking@hotmail.com</a>
+                <a id="email" href="mailTo:{{ fetched.website.contact_email }}">{{ fetched.website.contact_email }}</a>
             </div>
             <div>
-                <span>©&nbsp;</span>
+                <span>&copy;</span>
                 <span>2023</span>
-                <span>&nbsp;Believe&nbsp;In&nbsp;Talking Ltd.</span>
+                <span>{{ fetched.website.trade_name }}</span>
             </div>
             <a href="https://meijerdesign.nl"> 
                 <span>Coded&nbsp;By&nbsp;&nbsp;&nbsp;</span>
@@ -86,10 +86,17 @@
             </a>
         </footer>
     </div>
+
+{% if page.url != "/" %}
+    {% set current_page = page.url %}
+{% else %}    
+    {% set current_page = "index" %}
+{% endif %}
+
     <nav>
 {%- for p in fetched.articles -%}
-    {% if p.path_name not in page.url %}
-        {% if loop.index0 == 0 %}
+    {% if p.path_name not in current_page %}
+        {% if p.display_order == 1 %}
             <a class="hoverScale" href="/{{p.path_name}}.html">
                 <img src="{{ fetched.website.favicon_url }}" alt="Website brand logo" />
             </a>
@@ -99,6 +106,7 @@
     {% endif %}
 {%- endfor -%}
     </nav>
+    
     <button>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 297">
             <g>

@@ -8,16 +8,19 @@ permalink: /{{ page.path_name | slugify }}.html
 ---
     {% for p in pagination.items %}
         <header>
-            {% if loop.index0 == 0 %}
+            {% if p.display_order == 1 %}
                 <img class="keepOpenImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
             {% else  %}
                 <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
             {% endif %}
         </header>
         <main>
-            {% if page.url == "/contact.html" %}
+            {% if p.path_name == "contact" %}
                 <section class="noBorder">
                     {{ p.text | safe }}
+                    {% if fetched.website.contact_email %}
+                        <span>Or send me an <a href="mailTo:{{ fetched.website.contact_email }}">email</a>.</span>
+                    {% endif %}
                 </section>
                 <form>
                     <label for="nameInput">Name</label>
@@ -29,13 +32,20 @@ permalink: /{{ page.path_name | slugify }}.html
                     <span>No Notification</span>
                     <button type="submit">Send</button>
                 </form>
-            {% elif loop.index0 == 0 %}
+                <dialog>
+                    <div>
+                        <button type="button" class="close">&times;</button>
+                        <h2></h2>
+                        <p></p>
+                    </div>
+                </dialog>
+            {% elif p.display_order == 1 %}
                 <section class="noBorder">
                     {{ p.text | safe }}
                 </section>
                 <div class="image-nav">
                     {%- for pageNav in fetched.articles -%}
-                        {% if loop.index0 != 0 %}
+                        {% if pageNav.display_order != 1 %}
                                 <a href="/{{pageNav.path_name}}.html">
                                     <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" />
                                     <span>{{ pageNav.nav_name }}</span>
@@ -48,4 +58,5 @@ permalink: /{{ page.path_name | slugify }}.html
                     {{ p.text | safe }}
                 </section>
             {% endif %}
+        </main>
     {% endfor %}
