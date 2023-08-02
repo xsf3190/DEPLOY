@@ -6,7 +6,7 @@ on:
 permissions:
   contents: write
 env:
-  CONTACT_ENDPOINT: ${{ vars.API_BELIEVEINTALKING }}
+  CONTACT_ENDPOINT: ${{ github.event.client_payload.aws_gateway_url }}
   BUILD_PATH: ${{ github.event.client_payload.build_path }}
   TEMPLATE: ${{ github.event.client_payload.template }}
   FETCH_URL: ${{ github.event.client_payload.fetch_url }}
@@ -37,7 +37,7 @@ jobs:
       - run: sed -i -e "s#CONTACT_ENDPOINT#$CONTACT_ENDPOINT#g" ./TEMPLATES/$TEMPLATE/index.js
 
       #  Remove any existing BUILD_PATH directory and its contents
-      - run: rm -Rf ./${BUILD_PATH}
+      - run: rm -v ./${BUILD_PATH}/*
       
       #  Build with Eleventy
       - run: npx @11ty/eleventy
