@@ -70,7 +70,7 @@ if (!submitted && window.location.href.indexOf("submitted.html") != -1)
 // Contact Form
 var textareaStr = "";
 var formElem = document.querySelector("form");
-var formSpan = (_b = formElem === null || formElem === void 0 ? void 0 : formElem.children) === null || _b === void 0 ? void 0 : _b.item(8);
+var formSpan = (_b = formElem === null || formElem === void 0 ? void 0 : formElem.children) === null || _b === void 0 ? void 0 : _b.item(6);
 (_c = document.querySelector("textarea")) === null || _c === void 0 ? void 0 : _c.addEventListener("input", function () {
     var _a;
     var area = document.querySelector("textarea");
@@ -78,7 +78,7 @@ var formSpan = (_b = formElem === null || formElem === void 0 ? void 0 : formEle
         return;
     if (area.value.length >= 400) {
         area.value = textareaStr;
-        var formSpan_1 = (_a = formElem === null || formElem === void 0 ? void 0 : formElem.children) === null || _a === void 0 ? void 0 : _a.item(8);
+        var formSpan_1 = (_a = formElem === null || formElem === void 0 ? void 0 : formElem.children) === null || _a === void 0 ? void 0 : _a.item(6);
         if (!formSpan_1)
             return;
         formSpan_1.classList.add("form-notification");

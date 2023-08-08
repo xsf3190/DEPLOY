@@ -1,0 +1,28 @@
+name: Build Infra
+on: 
+  workflow_dispatch:
+  repository_dispatch:
+    types: trigger_build_infra
+permissions:
+  contents: write
+env:
+  TF_VAR_FROM_EMAIL: ${{ github.event.client_payload.from_email }}
+  TF_VAR_PUBLIC_KEY: ${{ github.event.client_payload.public_key }}
+jobs:
+  build_page:
+    name: Build Infra
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform_lambda_api
+    steps:
+      # Get latest updates repo
+      - uses: actions/checkout@v3
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
+      
+      - run: terraform init
+      - run: terraform plan
+      - run: terraform apply
