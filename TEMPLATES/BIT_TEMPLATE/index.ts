@@ -63,7 +63,7 @@ if (!submitted && window.location.href.indexOf("submitted.html") != -1) window.l
 // Contact Form
 var textareaStr = "";
 const formElem = document.querySelector("form");
-const formSpan = formElem?.children?.item(6);
+const formSpan = formElem?.querySelector("span");
 document.querySelector("textarea")?.addEventListener("input", () => {
     const area = document.querySelector("textarea");
     if (!area) return;
@@ -85,8 +85,15 @@ document.addEventListener("submit", (e: SubmitEvent) => {
     const formData = new FormData(formElem || undefined);
     formElem?.querySelector("button")?.classList.add("submitting");
 
-    const aws_gateway_url = (e.target as HTMLButtonElement)?.dataset.url;
-    if(!aws_gateway_url) throw new Error("no valid url found");
+    const aws_gateway_url = (formElem?.querySelector("button") as HTMLButtonElement)?.dataset.url
+    if(!aws_gateway_url){
+        if (formSpan){
+            formSpan.classList.add("form-notification");
+            formSpan.innerHTML = "Cannot submit, please send an email.";
+            formElem?.querySelector("button")?.classList.remove("submitting");
+        }
+        throw new Error("no valid url found");
+    }
 
     fetch(aws_gateway_url, {
         method: "POST",
@@ -111,7 +118,7 @@ document.addEventListener("submit", (e: SubmitEvent) => {
             return;
         }
         throw new Error("Could not submit request");
-    }).catch(function (error) {
+    }).catch( (error) => {
         if (!formSpan) return;
         formSpan.classList.add("form-notification");
         formSpan.innerHTML = "Cannot submit, please send an email.";
