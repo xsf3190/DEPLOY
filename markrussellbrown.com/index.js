@@ -96,7 +96,7 @@ document.addEventListener("submit", function (e) {
     (_a = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _a === void 0 ? void 0 : _a.classList.add("submitting");
     var aws_gateway_url = (_b = e.target) === null || _b === void 0 ? void 0 : _b.dataset.url;
     if (!aws_gateway_url)
-        return;
+        throw new Error("no valid url found");
     fetch(aws_gateway_url, {
         method: "POST",
         headers: {
