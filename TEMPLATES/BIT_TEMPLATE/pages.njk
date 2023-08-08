@@ -30,7 +30,7 @@ permalink: /{{ page.path_name | slugify }}.html
                     <label for="messageInput">Message</label>
                     <textarea id="messageInput" name="message" required="" minlength="1" maxlength="400"></textarea>
                     <span>No Notification</span>
-                    <button type="submit">Send</button>
+                    <button data-url="{{ fetched.website.aws_gateway_url }}" type="submit">Send</button>
                 </form>
                 <dialog>
                     <div>
