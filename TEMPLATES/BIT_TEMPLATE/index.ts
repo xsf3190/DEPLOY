@@ -63,14 +63,14 @@ if (!submitted && window.location.href.indexOf("submitted.html") != -1) window.l
 // Contact Form
 var textareaStr = "";
 const formElem = document.querySelector("form");
-const formSpan = formElem?.children?.item(8);
+const formSpan = formElem?.children?.item(6);
 document.querySelector("textarea")?.addEventListener("input", () => {
     const area = document.querySelector("textarea");
     if (!area) return;
 
     if (area.value.length >= 400) {
         area.value = textareaStr;
-        const formSpan = formElem?.children?.item(8);
+        const formSpan = formElem?.children?.item(6);
         if (!formSpan) return;
         formSpan.classList.add("form-notification");
         formSpan.innerHTML = "Sorry, cannot add more."

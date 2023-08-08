@@ -27,11 +27,11 @@ permalink: /{{ page.path_name | slugify }}.html
                     <input type="text" id="nameInput" name="name" required="" minlength="1" maxlength="50" />
                     <label for="emailInput">Email</label>
                     <input type="email" id="emailInput" name="email" required="" maxlength="50" />
-                    <input type="hidden" name="contactEmail" value="{{ fetched.website.contact_email }}"/>
-                    <input type="hidden" name="signatureContactEmail" value="{{ fetched.website.signatureContactEmail }}"/>
                     <label for="messageInput">Message</label>
                     <textarea id="messageInput" name="message" required="" minlength="1" maxlength="400"></textarea>
                     <span>No Notification</span>
+                    <input type="hidden" name="contactEmail" value="{{ fetched.website.contact_email }}"/>
+                    <input type="hidden" name="signatureContactEmail" value="{{ fetched.website.signatureContactEmail }}"/>
                     <button data-url="{{ fetched.website.aws_gateway_url }}" type="submit">Send</button>
                 </form>
                 <dialog>
