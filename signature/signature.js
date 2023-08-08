@@ -4,15 +4,15 @@ const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
     modulusLength: 2048,
     publicKeyEncoding: {
         type: "pkcs1",
-        format: "jwk",
+        format: "pem",
     },
     privateKeyEncoding: {
         type: "pkcs1",
-        format: "jwk",
+        format: "pem",
     },
 });
 
 console.log("=======");
-console.log(JSON.stringify(publicKey));
+console.log(Buffer.from(publicKey).toString("base64"));
 console.log("=======");
-console.log(JSON.stringify(privateKey));
+console.log(Buffer.from(privateKey).toString("base64"));
