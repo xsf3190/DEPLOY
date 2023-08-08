@@ -105,13 +105,6 @@ resource "aws_lambda_function" "test_lambda" {
 resource "aws_apigatewayv2_api" "lambda" {
   name          = "serverless_lambda_gw"
   protocol_type = "HTTP"
-}
-
-resource "aws_apigatewayv2_stage" "lambda" {
-  api_id = aws_apigatewayv2_api.lambda.id
-
-  name        = "serverless_lambda_stage"
-  auto_deploy = true
 
   cors_configuration {
     allow_origins = ["*"]
@@ -119,6 +112,13 @@ resource "aws_apigatewayv2_stage" "lambda" {
     allow_headers = ["content-type"]
     max_age = 300
   }
+}
+
+resource "aws_apigatewayv2_stage" "lambda" {
+  api_id = aws_apigatewayv2_api.lambda.id
+
+  name        = "serverless_lambda_stage"
+  auto_deploy = true
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gw.arn
