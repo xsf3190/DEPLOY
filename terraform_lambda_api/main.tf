@@ -109,7 +109,7 @@ resource "aws_apigatewayv2_api" "lambda" {
   cors_configuration {
     allow_origins = ["*"]
     allow_methods = ["POST"]
-    allow_headers = ["content-type"]
+    allow_headers = ["*"]
     max_age = 300
   }
 }
