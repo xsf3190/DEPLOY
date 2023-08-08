@@ -30,7 +30,7 @@ jobs:
       - run: npm install
 
       #  Transpile typesript
-      - run: npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile .TEMPLATES/$TEMPLATE/index.js
+      - run: npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile ./TEMPLATES/$TEMPLATE/index.js
 
       #  Remove any existing BUILD_PATH directory and its contents
       - run: rm -v ./${BUILD_PATH}/*
