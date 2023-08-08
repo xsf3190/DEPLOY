@@ -90,11 +90,14 @@ var formSpan = (_b = formElem === null || formElem === void 0 ? void 0 : formEle
     }
 });
 document.addEventListener("submit", function (e) {
-    var _a;
+    var _a, _b;
     e.preventDefault();
     var formData = new FormData(formElem || undefined);
     (_a = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _a === void 0 ? void 0 : _a.classList.add("submitting");
-    fetch("https://6vepad8o23.execute-api.eu-central-1.amazonaws.com/default/ContactFormBelieveInTalking" || "", {
+    var aws_gateway_url = (_b = e.target) === null || _b === void 0 ? void 0 : _b.dataset.url;
+    if (!aws_gateway_url)
+        throw new Error("no valid url found");
+    fetch(aws_gateway_url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -106,6 +109,8 @@ document.addEventListener("submit", function (e) {
             name: formData.get("name"),
             email: formData.get("email"),
             message: formData.get("message"),
+            contactEmail: formData.get("contactEmail"),
+            signatureContactEmail: formData.get("signatureContactEmail")
         }),
     }).then(function (response) {
         var _a;

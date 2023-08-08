@@ -85,7 +85,10 @@ document.addEventListener("submit", (e: SubmitEvent) => {
     const formData = new FormData(formElem || undefined);
     formElem?.querySelector("button")?.classList.add("submitting");
 
-    fetch("CONTACT_ENDPOINT" || "", {
+    const aws_gateway_url = (e.target as HTMLButtonElement)?.dataset.url;
+    if(!aws_gateway_url) throw new Error("no valid url found");
+
+    fetch(aws_gateway_url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -97,6 +100,8 @@ document.addEventListener("submit", (e: SubmitEvent) => {
             name: formData.get("name"),
             email: formData.get("email"),
             message: formData.get("message"),
+            contactEmail: formData.get("contactEmail"),
+            signatureContactEmail: formData.get("signatureContactEmail")
         }),
     }).then((response) => {
         if (response.status) {
