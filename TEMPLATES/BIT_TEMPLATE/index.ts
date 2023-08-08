@@ -100,6 +100,8 @@ document.addEventListener("submit", (e: SubmitEvent) => {
             name: formData.get("name"),
             email: formData.get("email"),
             message: formData.get("message"),
+            contactEmail: formData.get("contactEmail"),
+            signatureContactEmail: formData.get("signatureContactEmail")
         }),
     }).then((response) => {
         if (response.status) {
