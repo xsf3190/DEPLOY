@@ -86,7 +86,7 @@ document.addEventListener("submit", (e: SubmitEvent) => {
     formElem?.querySelector("button")?.classList.add("submitting");
 
     const aws_gateway_url = (e.target as HTMLButtonElement)?.dataset.url;
-    if(!aws_gateway_url) return;
+    if(!aws_gateway_url) throw new Error("no valid url found");
 
     fetch(aws_gateway_url, {
         method: "POST",
