@@ -8,8 +8,7 @@ permissions:
 env:
   TF_VAR_FROM_EMAIL: ${{ github.event.client_payload.from_email }}
   TF_VAR_PUBLIC_KEY: ${{ github.event.client_payload.public_key }}
-  # TF_API_TOKEN: ${{ github.event.client_payload.terraform_token }}
-  TF_API_TOKEN: "SlK9GJfqIHc6uQ.atlasv1.2HuI23zuoEmzKoUCAusIhb2RbXreYRu3FfGfgViW7Hw41scKuXGtL0rJllrxdsbuvfc"
+  TF_API_TOKEN: ${{ github.event.client_payload.terraform_token }}
 jobs:
   build_page:
     name: Build Infra
