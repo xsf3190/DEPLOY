@@ -195,5 +195,5 @@ output "public_key" {
 }
 
 output "ses_dkim_tokens" {
-  value = toset(values(aws_ses_domain_dkim.example.dkim_toke)[*])
+  value = toset(values(aws_ses_domain_dkim.domain_identity_dkim.dkim_tokens)[*])
 }
