@@ -6,11 +6,11 @@ terraform {
       name = "Mark_CMS"
     }
   }
-   required_providers {
+  required_providers {
     aws = {
       source = "hashicorp/aws"
     }
-   }
+  }
 }
 
 provider "aws" {
@@ -23,6 +23,19 @@ variable "FROM_EMAIL" {
 
 variable "PUBLIC_KEY" {
   type = string
+}
+
+# ---- SES ----
+resource "aws_ses_domain_identity" "domain_identity" {
+  domain = "markrussellbrown.com"
+}
+
+resource "aws_ses_domain_dkim" "domain_identity_dkim" {
+  domain = aws_ses_domain_identity.domain_identity.domain
+}
+
+resource "aws_ses_domain_identity_verification" "domain_verification" {
+  domain = aws_ses_domain_identity.domain_identity.id
 }
 
 # ---- Lambda ----
@@ -83,17 +96,17 @@ data "archive_file" "lambda" {
 
 resource "aws_lambda_function" "test_lambda" {
 
-  filename      = "lambda_function_payload.zip"
-  function_name = "lambda_function_name"
-  role          = aws_iam_role.lambda.arn
-  handler       = "lambda.handler"
-  source_code_hash = "${base64sha256(file("./${var.src_lambda}/lambda.js"))}"
-  runtime = "nodejs18.x"
+  filename         = "lambda_function_payload.zip"
+  function_name    = "lambda_function_name"
+  role             = aws_iam_role.lambda.arn
+  handler          = "lambda.handler"
+  source_code_hash = base64sha256(file("./${var.src_lambda}/lambda.js"))
+  runtime          = "nodejs18.x"
 
   environment {
     variables = {
       FROM_EMAIL = "${var.FROM_EMAIL}"
-      SUBJECT = "Email notification"
+      SUBJECT    = "Email notification"
       PUBLIC_KEY = "${var.PUBLIC_KEY}"
     }
   }
@@ -110,7 +123,7 @@ resource "aws_apigatewayv2_api" "lambda" {
     allow_origins = ["*"]
     allow_methods = ["POST"]
     allow_headers = ["*"]
-    max_age = 300
+    max_age       = 300
   }
 }
 
@@ -174,9 +187,13 @@ output "invoke_url" {
 }
 
 output "from_email" {
-  value = "${var.FROM_EMAIL}"
+  value = var.FROM_EMAIL
 }
 
 output "public_key" {
-  value = "${var.PUBLIC_KEY}"
+  value = var.PUBLIC_KEY
+}
+
+output "ses_dkim_tokens" {
+  value = toset(values(aws_ses_domain_dkim.example.dkim_toke)[*])
 }
