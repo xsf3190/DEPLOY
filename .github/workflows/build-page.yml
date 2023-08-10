@@ -19,7 +19,7 @@ jobs:
         node-version: [18.x]
     steps:
       # Log status
-      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"testing from github"}'
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Starting github action build"}'
       
       # Get latest updates repo
       - uses: actions/checkout@v3
@@ -39,9 +39,15 @@ jobs:
       #  Remove any existing BUILD_PATH directory and its contents
       - run: rm -v ./${BUILD_PATH}/*
       
+      # Log status
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":".. Eleventy build pages"}'
+      
       #  Build with Eleventy
       - run: npx @11ty/eleventy
 
+      # Log status
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":".. push to repository"}'
+      
       # Git push build
       - run: |
           git config user.name github-actions
@@ -49,3 +55,6 @@ jobs:
           git add ./$BUILD_PATH
           git commit -m build
           git push
+
+      # Log status
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"github build completed"}'
