@@ -34,9 +34,9 @@ resource "aws_ses_domain_dkim" "domain_identity_dkim" {
   domain = aws_ses_domain_identity.domain_identity.domain
 }
 
-resource "aws_ses_domain_identity_verification" "domain_verification" {
-  domain = aws_ses_domain_identity.domain_identity.id
-}
+# resource "aws_ses_domain_identity_verification" "domain_verification" {
+#   domain = aws_ses_domain_identity.domain_identity.id
+# }
 
 # ---- Lambda ----
 variable "src_lambda" {
