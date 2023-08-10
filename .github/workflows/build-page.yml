@@ -9,6 +9,7 @@ env:
   BUILD_PATH: ${{ github.event.client_payload.build_path }}
   TEMPLATE: ${{ github.event.client_payload.template }}
   FETCH_URL: ${{ github.event.client_payload.fetch_url }}
+  LOG_URL: ${{ github.event.client_payload.log_url }}
 jobs:
   build_page:
     name: Build page
@@ -17,6 +18,9 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
+      # Log status
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Starting github action build"}'
+      
       # Get latest updates repo
       - uses: actions/checkout@v3
 
@@ -35,9 +39,15 @@ jobs:
       #  Remove any existing BUILD_PATH directory and its contents
       - run: rm -v ./${BUILD_PATH}/*
       
+      # Log status
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":".. Eleventy build pages"}'
+      
       #  Build with Eleventy
       - run: npx @11ty/eleventy
 
+      # Log status
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":".. push to repository"}'
+      
       # Git push build
       - run: |
           git config user.name github-actions
@@ -45,3 +55,6 @@ jobs:
           git add ./$BUILD_PATH
           git commit -m build
           git push
+
+      # Log status
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"github build completed"}'
