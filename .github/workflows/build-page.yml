@@ -40,13 +40,10 @@ jobs:
       - run: rm -v ./${BUILD_PATH}/*
       
       # Log status
-      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":".. Eleventy build pages"}'
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Eleventy build pages"}'
       
       #  Build with Eleventy
       - run: npx @11ty/eleventy
-
-      # Log status
-      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":".. push to repository"}'
       
       # Git push build
       - run: |
@@ -57,4 +54,4 @@ jobs:
           git push
 
       # Log status
-      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"github build completed"}'
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"github action completed"}'
