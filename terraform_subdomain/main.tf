@@ -1,10 +1,6 @@
 terraform {
   cloud {
     organization = "Florent"
-
-    workspaces {
-      name = var.sub_domain
-    }
   }
   required_providers {
     aws = {

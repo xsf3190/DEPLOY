@@ -22,6 +22,8 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
+
+      - run: export TF_WORKSPACE=$TF_VAR_sub_domain
       
       - run: terraform init
 
