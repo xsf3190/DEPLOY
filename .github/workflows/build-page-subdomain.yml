@@ -1,0 +1,28 @@
+name: Build page subdomain
+on: 
+  workflow_dispatch:
+  repository_dispatch:
+    types: trigger_build_page_subdomain
+env:
+  ID_BUCKET: ${{ github.event.client_payload.id_bucket }}
+  ID_DISTRIBUTION: ${{ github.event.client_payload.id_distribution }}
+  BUILD_PATH: ${{ github.event.client_payload.build_path }}
+jobs:
+  build_page:
+    name: Build Page Subdomain
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1 
+        with:
+          aws-access-key-id: ${{ github.event.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ segithub.eventcrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # Sync directory
+      - run: aws s3 sync --region us-east-1 ./../$BUILD_PATH "s3://$ID_BUCKET/"
+
+      # Flush cache
+      - run: aws cloudfront create-invalidation --distribution-id $ID_DISTRIBUTION --paths "/*"

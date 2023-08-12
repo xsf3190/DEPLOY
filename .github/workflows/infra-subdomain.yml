@@ -40,4 +40,8 @@ jobs:
 
 
       - run: |
-              if [ "$ACTION" == "destroy" ]; then terraform destroy -auto-approve ;fi
+              if [ "$ACTION" == "destroy" ]; 
+                then 
+                  curl --location --request DELETE 'https://app.terraform.io/api/v2/organizations/Florent/workspaces/test1' \
+                  --header 'Authorization: Bearer p2byL7aYf5zPUw.atlasv1.F61e7ORElBgRmZl6iTfBxGmgdjfDzEiWFtHPAf2qJWntHGDVfqlffXn7HpkR0ykyzxg'
+                fi
