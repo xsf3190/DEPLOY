@@ -1,6 +1,8 @@
 terraform {
   cloud {
     organization = "Florent"
+
+    tags = ["subdomains"]
   }
   required_providers {
     aws = {
