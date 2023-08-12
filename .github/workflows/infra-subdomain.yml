@@ -23,6 +23,8 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
+
+      - run: terraform workspace select $TF_WORKSPACE -or-create
       
       - run: terraform init
 
