@@ -31,13 +31,11 @@ jobs:
                 [[ "$status_code" -ne 200 ]] && curl --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces' \
                 --header 'Content-Type: application/vnd.api+json' \
                 --header 'Authorization: Bearer ${{ github.event.client_payload.terraform_token }}' \
-                --data '{ "data": { "attributes": { "name": "${{ github.event.client_payload.sub_domain }}", "auto-apply": true } } }'
+                --data '{ "data": { "attributes": { "name": "${{ github.event.client_payload.sub_domain }}", "auto-apply": "true" } } }'
 
       - run: terraform init
 
-      - run: terraform plan
-
-      - run: terraform apply
+      - run: terraform apply 
         if: ${{ env.ACTION }} == "apply"
 
       - run: terraform destroy
