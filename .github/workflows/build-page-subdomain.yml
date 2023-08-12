@@ -22,7 +22,7 @@ jobs:
           aws-region: us-east-1
 
       # Sync directory
-      - run: aws s3 sync --region us-east-1 ./../$BUILD_PATH "s3://$ID_BUCKET/"
+      - run: aws s3 sync --region us-east-1 ./$BUILD_PATH "s3://$ID_BUCKET/"
 
       # Flush cache
       - run: aws cloudfront create-invalidation --distribution-id $ID_DISTRIBUTION --paths "/*"
