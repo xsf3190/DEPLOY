@@ -1,0 +1,32 @@
+name: Infra Subdomain
+on: 
+  workflow_dispatch:
+  repository_dispatch:
+    types: trigger_infra_subdomain
+permissions:
+  contents: write
+env:
+  ACTION: ${{ github.event.client_payload.action }}
+  TF_VAR_top_level_domain: ${{ github.event.client_payload.top_level_domain }}
+  TF_VAR_sub_domain: ${{ github.event.client_payload.sub_domain }}
+jobs:
+  build_page:
+    name: Infra Subdomain
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform_subdomain
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
+      
+      - run: terraform plan
+
+      - run: terraform apply -auto-approve
+        if: $ACTION == "apply"
+
+      - run: terraform destroy -auto-approve
+        if: $ACTION == "destroy"
