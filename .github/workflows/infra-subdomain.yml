@@ -23,9 +23,9 @@ jobs:
         with:
           cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
 
-      - run: terraform workspace select -or-create ${{ github.event.client_payload.sub_domain }}
-
       - run: terraform init
+
+      - run: terraform workspace select -or-create ${{ github.event.client_payload.sub_domain }}
 
       - run: terraform plan
 
