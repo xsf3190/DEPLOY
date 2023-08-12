@@ -25,21 +25,20 @@ jobs:
           cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
 
       - run: |
-        export CREATED=$(curl --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces/$TF_WORKSPACE' \
-        --header 'Authorization: Bearer NStg8QPeDzYpvQ.atlasv1.nmCPLgFiyLp9UiQbNjHVrmJnIKFBJRmfnVBFrtzvxM4TSA1KkDYgZzkeEr9kwFA7IC4')
-
+                export CREATED=$(curl --write-out %{http_code} --silent --output /dev/null --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces/$TF_WORKSPACE' \
+                --header 'Authorization: Bearer NStg8QPeDzYpvQ.atlasv1.nmCPLgFiyLp9UiQbNjHVrmJnIKFBJRmfnVBFrtzvxM4TSA1KkDYgZzkeEr9kwFA7IC4')
       - run: |
-        [[ "$status_code" -ne 200 ]] && curl --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces' \
-        --header 'Content-Type: application/vnd.api+json' \
-        --header 'Authorization: Bearer NStg8QPeDzYpvQ.atlasv1.nmCPLgFiyLp9UiQbNjHVrmJnIKFBJRmfnVBFrtzvxM4TSA1KkDYgZzkeEr9kwFA7IC4' \
-        --data '{
-            "data": {
-                "attributes": {
-                    "name": $TF_WORKSPACE,
-                    "auto-apply": true
-                }
-            }
-        }'
+                [[ "$status_code" -ne 200 ]] && curl --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces' \
+                --header 'Content-Type: application/vnd.api+json' \
+                --header 'Authorization: Bearer NStg8QPeDzYpvQ.atlasv1.nmCPLgFiyLp9UiQbNjHVrmJnIKFBJRmfnVBFrtzvxM4TSA1KkDYgZzkeEr9kwFA7IC4' \
+                --data '{
+                    "data": {
+                        "attributes": {
+                            "name": $TF_WORKSPACE,
+                            "auto-apply": true
+                        }
+                    }
+                }'
 
       - run: terraform init
 
