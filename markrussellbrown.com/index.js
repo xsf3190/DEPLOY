@@ -7,7 +7,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-var _a, _b, _c, _d;
+var _a, _b, _c;
 console.log("Welcome!");
 console.log("Please contact us at contact@meijerdesign.nl");
 var wrapper = document.body.children.item(0);
@@ -70,8 +70,8 @@ if (!submitted && window.location.href.indexOf("submitted.html") != -1)
 // Contact Form
 var textareaStr = "";
 var formElem = document.querySelector("form");
-var formSpan = (_b = formElem === null || formElem === void 0 ? void 0 : formElem.children) === null || _b === void 0 ? void 0 : _b.item(6);
-(_c = document.querySelector("textarea")) === null || _c === void 0 ? void 0 : _c.addEventListener("input", function () {
+var formSpan = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("span");
+(_b = document.querySelector("textarea")) === null || _b === void 0 ? void 0 : _b.addEventListener("input", function () {
     var _a;
     var area = document.querySelector("textarea");
     if (!area)
@@ -90,13 +90,19 @@ var formSpan = (_b = formElem === null || formElem === void 0 ? void 0 : formEle
     }
 });
 document.addEventListener("submit", function (e) {
-    var _a, _b;
+    var _a, _b, _c;
     e.preventDefault();
     var formData = new FormData(formElem || undefined);
     (_a = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _a === void 0 ? void 0 : _a.classList.add("submitting");
-    var aws_gateway_url = (_b = e.target) === null || _b === void 0 ? void 0 : _b.dataset.url;
-    if (!aws_gateway_url)
+    var aws_gateway_url = (_b = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _b === void 0 ? void 0 : _b.dataset.url;
+    if (!aws_gateway_url) {
+        if (formSpan) {
+            formSpan.classList.add("form-notification");
+            formSpan.innerHTML = "Cannot submit, please send an email.";
+            (_c = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _c === void 0 ? void 0 : _c.classList.remove("submitting");
+        }
         throw new Error("no valid url found");
+    }
     fetch(aws_gateway_url, {
         method: "POST",
         headers: {
@@ -132,7 +138,7 @@ document.addEventListener("submit", function (e) {
     });
 });
 // Set correct year footer
-var copyRightDiv = (_d = footer === null || footer === void 0 ? void 0 : footer.children.item(2)) === null || _d === void 0 ? void 0 : _d.children.item(1);
+var copyRightDiv = (_c = footer === null || footer === void 0 ? void 0 : footer.children.item(2)) === null || _c === void 0 ? void 0 : _c.children.item(1);
 if (copyRightDiv) {
     copyRightDiv.innerHTML = new Date().getFullYear().toString();
 }
