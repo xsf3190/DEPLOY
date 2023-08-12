@@ -23,6 +23,8 @@ jobs:
         with:
           cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
       
+      - run: terraform init
+
       - run: terraform plan
 
       - run: terraform apply -auto-approve
