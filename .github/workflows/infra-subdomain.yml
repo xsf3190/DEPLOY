@@ -35,8 +35,8 @@ jobs:
 
       - run: terraform init
 
-      - run: terraform apply -auto-approve
-        if: ${{ env.ACTION }} == "apply"
+      - run: |
+              [[ "$ACTION" -e apply ]] && terraform apply -auto-approve
 
-      - run: terraform destroy -auto-approve
-        if: ${{ env.ACTION }} == "destroy"
+      - run: |
+              [[ "$ACTION" -e destroy ]] && terraform destroy -auto-approve
