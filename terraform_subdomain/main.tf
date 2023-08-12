@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "allow_access_from_cloudfront" {
 }
 
 resource "aws_cloudfront_origin_access_control" "m93_nl" {
-  name                              = "m93.nl_aws_cloudfront_origin_access_control"
+  name                              = "${var.sub_domain}_${var.top_level_domain}_aws_cloudfront_origin_access_control"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
