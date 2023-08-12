@@ -9,7 +9,6 @@ env:
   ACTION: ${{ github.event.client_payload.action }}
   TF_VAR_top_level_domain: ${{ github.event.client_payload.top_level_domain }}
   TF_VAR_sub_domain: ${{ github.event.client_payload.sub_domain }}
-  TF_WORKSPACE: ${{ github.event.client_payload.sub_domain }}
 jobs:
   build_page:
     name: Infra Subdomain
@@ -24,7 +23,7 @@ jobs:
         with:
           cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
 
-      - run: terraform workspace select -or-create $TF_WORKSPACE
+      - run: terraform workspace select -or-create ${{ github.event.client_payload.sub_domain }}
 
       - run: terraform init
 
