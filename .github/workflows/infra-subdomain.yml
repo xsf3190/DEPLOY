@@ -29,7 +29,6 @@ jobs:
         with:
           aws-access-key-id: ${{ github.event.client_payload.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ github.event.client_payload.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
 
       - run: |
                 export status_code=$(curl --write-out %{http_code} --silent --output /dev/null --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces/$TF_WORKSPACE' \
