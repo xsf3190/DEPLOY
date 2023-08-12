@@ -10,8 +10,6 @@ env:
   TF_VAR_top_level_domain: ${{ github.event.client_payload.top_level_domain }}
   TF_VAR_sub_domain: ${{ github.event.client_payload.sub_domain }}
   TF_WORKSPACE: ${{ github.event.client_payload.sub_domain }}
-  AWS_ACCESS_KEY_ID: ${{ github.event.client_payload.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ github.event.client_payload.AWS_SECRET_ACCESS_KEY }}
 jobs:
   build_page:
     name: Infra Subdomain
@@ -25,6 +23,8 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
+            AWS_ACCESS_KEY_ID: ${{ github.event.client_payload.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ github.event.client_payload.AWS_SECRET_ACCESS_KEY }}
 
       - run: |
                 export status_code=$(curl --write-out %{http_code} --silent --output /dev/null --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces/$TF_WORKSPACE' \
