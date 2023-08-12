@@ -26,11 +26,11 @@ jobs:
 
       - run: |
                 export CREATED=$(curl --write-out %{http_code} --silent --output /dev/null --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces/$TF_WORKSPACE' \
-                --header 'Authorization: Bearer NStg8QPeDzYpvQ.atlasv1.nmCPLgFiyLp9UiQbNjHVrmJnIKFBJRmfnVBFrtzvxM4TSA1KkDYgZzkeEr9kwFA7IC4')
+                --header 'Authorization: Bearer ${{ github.event.client_payload.terraform_token }}')
       - run: |
                 [[ "$status_code" -ne 200 ]] && curl --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces' \
                 --header 'Content-Type: application/vnd.api+json' \
-                --header 'Authorization: Bearer NStg8QPeDzYpvQ.atlasv1.nmCPLgFiyLp9UiQbNjHVrmJnIKFBJRmfnVBFrtzvxM4TSA1KkDYgZzkeEr9kwFA7IC4' \
+                --header 'Authorization: Bearer ${{ github.event.client_payload.terraform_token }}' \
                 --data '{
                     "data": {
                         "attributes": {
