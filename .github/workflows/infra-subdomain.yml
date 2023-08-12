@@ -24,14 +24,29 @@ jobs:
         with:
           cli_config_credentials_token: ${{ github.event.client_payload.terraform_token }}
 
-      - run: terraform init
+      - run: |
+        export CREATED=$(curl --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces/$TF_WORKSPACE' \
+        --header 'Authorization: Bearer NStg8QPeDzYpvQ.atlasv1.nmCPLgFiyLp9UiQbNjHVrmJnIKFBJRmfnVBFrtzvxM4TSA1KkDYgZzkeEr9kwFA7IC4')
 
-      - run: terraform workspace select -or-create ${{ github.event.client_payload.sub_domain }}
+      - run: |
+        [[ "$status_code" -ne 200 ]] && curl --location 'https://app.terraform.io/api/v2/organizations/Florent/workspaces' \
+        --header 'Content-Type: application/vnd.api+json' \
+        --header 'Authorization: Bearer NStg8QPeDzYpvQ.atlasv1.nmCPLgFiyLp9UiQbNjHVrmJnIKFBJRmfnVBFrtzvxM4TSA1KkDYgZzkeEr9kwFA7IC4' \
+        --data '{
+            "data": {
+                "attributes": {
+                    "name": $TF_WORKSPACE,
+                    "auto-apply": true
+                }
+            }
+        }'
+
+      - run: terraform init
 
       - run: terraform plan
 
-      - run: terraform apply -auto-approve
+      - run: terraform apply
         if: ${{ env.ACTION }} == "apply"
 
-      - run: terraform destroy -auto-approve
+      - run: terraform destroy
         if: ${{ env.ACTION }} == "destroy"
