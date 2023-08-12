@@ -9,6 +9,7 @@ env:
   ACTION: ${{ github.event.client_payload.action }}
   TF_VAR_top_level_domain: ${{ github.event.client_payload.top_level_domain }}
   TF_VAR_sub_domain: ${{ github.event.client_payload.sub_domain }}
+  TF_WORKSPACE: ${{ github.event.client_payload.sub_domain }}
 jobs:
   build_page:
     name: Infra Subdomain

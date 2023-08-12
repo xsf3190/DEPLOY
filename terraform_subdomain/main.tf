@@ -3,7 +3,7 @@ terraform {
     organization = "Florent"
 
     workspaces {
-      tags = var.sub_domain
+      prefix = "subdomain"
     }
   }
   required_providers {
