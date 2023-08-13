@@ -30,7 +30,7 @@ jobs:
               fi
 
       - run: |
-        if [ "$ACTION" == "destroy" ]; 
-          then 
-            aws s3 rm "s3://$ID_BUCKET" --recursive
-          fi
+            if [ "$ACTION" == "destroy" ]; 
+              then 
+                aws s3 rm "s3://$ID_BUCKET" --recursive
+              fi
