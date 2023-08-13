@@ -26,7 +26,7 @@ jobs:
             if [ "$ACTION" != "destroy" ]; 
               then 
                 aws s3 sync --region us-east-1 ./$BUILD_PATH "s3://$ID_BUCKET/"
-                aws cloudfront create-invalidation --distribution-id $ID_DISTRIBUTION --paths "/*
+                aws cloudfront create-invalidation --distribution-id $ID_DISTRIBUTION --paths "/*"
               fi
 
       - run: |
