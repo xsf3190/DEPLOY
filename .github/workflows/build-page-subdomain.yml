@@ -7,6 +7,7 @@ env:
   ID_BUCKET: ${{ github.event.client_payload.id_bucket }}
   ID_DISTRIBUTION: ${{ github.event.client_payload.id_distribution }}
   BUILD_PATH: ${{ github.event.client_payload.build_path }}
+  ACTION: ${{ github.event.client_payload.action }}
 jobs:
   build_page:
     name: Build Page Subdomain
@@ -21,8 +22,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Sync directory
-      - run: aws s3 sync --region us-east-1 ./$BUILD_PATH "s3://$ID_BUCKET/"
+      - run: |
+            if [ "$ACTION" != "destroy" ]; 
+              then 
+                aws s3 sync --region us-east-1 ./$BUILD_PATH "s3://$ID_BUCKET/"
+                aws cloudfront create-invalidation --distribution-id $ID_DISTRIBUTION --paths "/*
+              fi
 
-      # Flush cache
-      - run: aws cloudfront create-invalidation --distribution-id $ID_DISTRIBUTION --paths "/*"
+      - run: |
+        if [ "$ACTION" == "destroy" ]; 
+          then 
+            aws s3 rm "s3://$ID_BUCKET" --recursive
+          fi

@@ -24,7 +24,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-          
+
       - uses: actions/checkout@v3
 
       - uses: hashicorp/setup-terraform@v2
@@ -48,7 +48,6 @@ jobs:
       - run: |
               if [ "$ACTION" == "destroy" ]; 
                 then 
-                  aws s3 rm s3://bucket-name --recursive
                   terraform destroy -auto-approve
                   curl --location --request DELETE 'https://app.terraform.io/api/v2/organizations/Florent/workspaces/test1' \
                   --header 'Authorization: Bearer p2byL7aYf5zPUw.atlasv1.F61e7ORElBgRmZl6iTfBxGmgdjfDzEiWFtHPAf2qJWntHGDVfqlffXn7HpkR0ykyzxg'
