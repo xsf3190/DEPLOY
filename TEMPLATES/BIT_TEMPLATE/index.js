@@ -51,13 +51,9 @@ if (wrapper && nav && button) {
 //const submitUrl = [...split.slice(0, split.length - 1), "submitted.html"].join("/");
 var submitted = sessionStorage.getItem("formSubmitted") === "submitted";
 if (submitted) {
-    document.querySelector("form > button").disabled = true;
+    var formBtn = document.querySelector("form > button");
+    formBtn.disabled = true;
 }
-//if (submitted) document.querySelectorAll("a").forEach((a) => a.href.indexOf("contact.html") > 0 ? a.href = submitUrl : false);
-// If form submitted, redirect user to submitted page
-//if (submitted && window.location.href.indexOf("contact.html") != -1) window.location.href = submitUrl;
-// If form not submitted redirect to contactpage
-//if (!submitted && window.location.href.indexOf("submitted.html") != -1) window.location.href = [...split.slice(0, split.length - 1), "contact.html"].join("/");
 // Contact Form
 var textareaStr = "";
 var formElem = document.querySelector("form");
