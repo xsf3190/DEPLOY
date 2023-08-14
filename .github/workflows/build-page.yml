@@ -33,7 +33,7 @@ jobs:
       # Install node_modules
       - run: npm install
 
-      #  Transpile typesript
+      #  Transpile typescript
       - run: |
           set +e
           npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile ./TEMPLATES/$TEMPLATE/index.js
@@ -45,24 +45,36 @@ jobs:
             curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Transpile Typescript - NOK"}'
           fi
           exit "$exitcode"
-          
 
       #  Remove any existing BUILD_PATH directory and its contents
       - run: rm -v ./${BUILD_PATH}/*
       
-      # Log status
-      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Eleventy build pages"}'
-      
       #  Build with Eleventy
-      - run: npx @11ty/eleventy
-      
+      - run: |
+          set +e
+          npx @11ty/eleventy
+          exitcode="$?"
+          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+          if [ "$exitcode" -eq "0" ]; then
+            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Eleventy build pages - OK"}'
+          else
+            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Eleventy build pages - NOK"}'
+          fi
+          exit "$exitcode"
+          
       # Git push build
       - run: |
+          set +e
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add ./$BUILD_PATH
           git commit -m build
           git push
-
-      # Log status
-      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"github action completed"}'
+          exitcode="$?"
+          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+          if [ "$exitcode" -eq "0" ]; then
+            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Github action completed - OK"}'
+          else
+            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Github action completed - NOK"}'
+          fi
+          exit "$exitcode"
