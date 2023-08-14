@@ -35,6 +35,7 @@ jobs:
 
       #  Transpile typesript
       - run: |
+          set +e
           npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile ./TEMPLATES/$TEMPLATE/index.js
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
