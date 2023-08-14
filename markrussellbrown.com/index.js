@@ -1,12 +1,3 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
 var _a, _b, _c;
 console.log("Welcome!");
 console.log("Please contact us at contact@meijerdesign.nl");
@@ -56,17 +47,13 @@ if (wrapper && nav && button) {
     }
 }
 // If form submitted adjust links
-var split = window.location.href.split("/");
-var submitUrl = __spreadArray(__spreadArray([], split.slice(0, split.length - 1), true), ["submitted.html"], false).join("/");
+//const split = window.location.href.split("/");
+//const submitUrl = [...split.slice(0, split.length - 1), "submitted.html"].join("/");
 var submitted = sessionStorage.getItem("formSubmitted") === "submitted";
-if (submitted)
-    document.querySelectorAll("a").forEach(function (a) { return a.href.indexOf("contact.html") > 0 ? a.href = submitUrl : false; });
-// If form submitted, redirect user to submitted page
-if (submitted && window.location.href.indexOf("contact.html") != -1)
-    window.location.href = submitUrl;
-// If form not submitted redirect to contactpage
-if (!submitted && window.location.href.indexOf("submitted.html") != -1)
-    window.location.href = __spreadArray(__spreadArray([], split.slice(0, split.length - 1), true), ["contact.html"], false).join("/");
+if (submitted) {
+    var formBtn = document.querySelector("form > button");
+    formBtn.disabled = true;
+}
 // Contact Form
 var textareaStr = "";
 var formElem = document.querySelector("form");
@@ -119,11 +106,12 @@ document.addEventListener("submit", function (e) {
             signatureContactEmail: formData.get("signatureContactEmail")
         }),
     }).then(function (response) {
-        var _a;
+        var _a, _b;
         if (response.status) {
             sessionStorage.setItem("formSubmitted", "submitted");
-            window.location.href = submitUrl;
+            //window.location.href = submitUrl;
             (_a = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _a === void 0 ? void 0 : _a.classList.remove("submitting");
+            (_b = document.querySelector("dialog")) === null || _b === void 0 ? void 0 : _b.showModal();
             return;
         }
         throw new Error("Could not submit request");

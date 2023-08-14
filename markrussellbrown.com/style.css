@@ -641,3 +641,15 @@ body>button svg {
     width: 1.5rem;
     height: 1.5rem;
 }
+
+/* Dialog */
+dialog > div {
+    display: grid;
+    place-items: center;
+}
+
+dialog button.close {
+    place-self: start end;
+    min-height: 44px;
+    min-width: 44px;
+}
