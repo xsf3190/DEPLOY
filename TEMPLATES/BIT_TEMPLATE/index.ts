@@ -49,16 +49,19 @@ if (wrapper && nav && button) {
 }
 
 // If form submitted adjust links
-const split = window.location.href.split("/");
-const submitUrl = [...split.slice(0, split.length - 1), "submitted.html"].join("/");
+//const split = window.location.href.split("/");
+//const submitUrl = [...split.slice(0, split.length - 1), "submitted.html"].join("/");
 const submitted = sessionStorage.getItem("formSubmitted") === "submitted";
-if (submitted) document.querySelectorAll("a").forEach((a) => a.href.indexOf("contact.html") > 0 ? a.href = submitUrl : false);
+if (submitted) {
+    document.querySelector("form > button").disabled = true;
+}
+//if (submitted) document.querySelectorAll("a").forEach((a) => a.href.indexOf("contact.html") > 0 ? a.href = submitUrl : false);
 
 // If form submitted, redirect user to submitted page
-if (submitted && window.location.href.indexOf("contact.html") != -1) window.location.href = submitUrl;
+//if (submitted && window.location.href.indexOf("contact.html") != -1) window.location.href = submitUrl;
 
 // If form not submitted redirect to contactpage
-if (!submitted && window.location.href.indexOf("submitted.html") != -1) window.location.href = [...split.slice(0, split.length - 1), "contact.html"].join("/");
+//if (!submitted && window.location.href.indexOf("submitted.html") != -1) window.location.href = [...split.slice(0, split.length - 1), "contact.html"].join("/");
 
 // Contact Form
 var textareaStr = "";
@@ -79,6 +82,7 @@ document.querySelector("textarea")?.addEventListener("input", () => {
         textareaStr = area?.value || "";
     }
 });
+
 document.addEventListener("submit", (e: SubmitEvent) => {
     e.preventDefault();
 
@@ -86,6 +90,7 @@ document.addEventListener("submit", (e: SubmitEvent) => {
     formElem?.querySelector("button")?.classList.add("submitting");
 
     const aws_gateway_url = (formElem?.querySelector("button") as HTMLButtonElement)?.dataset.url
+
     if(!aws_gateway_url){
         if (formSpan){
             formSpan.classList.add("form-notification");
@@ -113,8 +118,9 @@ document.addEventListener("submit", (e: SubmitEvent) => {
     }).then((response) => {
         if (response.status) {
             sessionStorage.setItem("formSubmitted", "submitted");
-            window.location.href = submitUrl;
+            //window.location.href = submitUrl;
             formElem?.querySelector("button")?.classList.remove("submitting");
+            document.querySelector("dialog")?.showModal();
             return;
         }
         throw new Error("Could not submit request");

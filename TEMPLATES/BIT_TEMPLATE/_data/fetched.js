@@ -8,6 +8,6 @@ module.exports = async function() {
         const result = await answer.json();
         return result;
     } catch (err) {
-        console.log("error while fetching website parts: ", err);
+        console.log("Error fetching website data: ", err);
     }
   };
