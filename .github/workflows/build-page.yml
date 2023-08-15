@@ -39,11 +39,7 @@ jobs:
           npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile ./TEMPLATES/$TEMPLATE/index.js
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          if [ "$exitcode" -eq "0" ]; then
-            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Transpile Typescript - OK"}'
-          else
-            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Transpile Typescript - NOK"}'
-          fi
+          curl -X POST ${LOG_URL}?${exitcode} -H 'Content-Type:application/json' -d '{"status":"Transpile Typescript"}'
           exit "$exitcode"
 
       #  Remove any existing BUILD_PATH directory and its contents
