@@ -19,7 +19,7 @@ jobs:
         node-version: [18.x]
     steps:
       # Log status
-      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Starting github action build"}'
+      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Github action started"}'
       
       # Get latest updates repo
       - uses: actions/checkout@v3
@@ -51,11 +51,7 @@ jobs:
           npx @11ty/eleventy
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          if [ "$exitcode" -eq "0" ]; then
-            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Eleventy build pages - OK"}'
-          else
-            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Eleventy build pages - NOK"}'
-          fi
+          curl -X POST ${LOG_URL}?${exitcode} -H 'Content-Type:application/json' -d '{"status":"Eleventy build pages"}'
           exit "$exitcode"
           
       # Git push build
@@ -68,9 +64,5 @@ jobs:
           git push
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          if [ "$exitcode" -eq "0" ]; then
-            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Github action completed - OK"}'
-          else
-            curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Github action completed - NOK"}'
-          fi
+          curl -X POST ${LOG_URL}?${exitcode} -H 'Content-Type:application/json' -d '{"status":"Github action completed"}'
           exit "$exitcode"
