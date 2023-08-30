@@ -652,4 +652,7 @@ dialog button.close {
     place-self: start end;
     min-height: 44px;
     min-width: 44px;
+    background-color: transparent;
+    font-size: var(--font-size-lg);
+    border: 0;
 }
