@@ -46,9 +46,6 @@ if (wrapper && nav && button) {
         });
     }
 }
-// If form submitted adjust links
-//const split = window.location.href.split("/");
-//const submitUrl = [...split.slice(0, split.length - 1), "submitted.html"].join("/");
 var submitted = sessionStorage.getItem("formSubmitted") === "submitted";
 if (submitted) {
     var formBtn = document.querySelector("form > button");
@@ -109,9 +106,10 @@ document.addEventListener("submit", function (e) {
         var _a, _b;
         if (response.status) {
             sessionStorage.setItem("formSubmitted", "submitted");
-            //window.location.href = submitUrl;
             (_a = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _a === void 0 ? void 0 : _a.classList.remove("submitting");
             (_b = document.querySelector("dialog")) === null || _b === void 0 ? void 0 : _b.showModal();
+            var formBtn = document.querySelector("form > button");
+            formBtn.disabled = true;
             return;
         }
         throw new Error("Could not submit request");
@@ -124,6 +122,11 @@ document.addEventListener("submit", function (e) {
         (_a = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _a === void 0 ? void 0 : _a.classList.remove("submitting");
         console.error(error);
     });
+});
+var dialog = document.querySelector("dialog");
+var dialogClose = dialog.querySelector("button.close");
+dialogClose.addEventListener("click", function (e) {
+    dialog.close();
 });
 // Set correct year footer
 var copyRightDiv = (_c = footer === null || footer === void 0 ? void 0 : footer.children.item(2)) === null || _c === void 0 ? void 0 : _c.children.item(1);

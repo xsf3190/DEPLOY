@@ -48,9 +48,6 @@ if (wrapper && nav && button) {
     }
 }
 
-// If form submitted adjust links
-//const split = window.location.href.split("/");
-//const submitUrl = [...split.slice(0, split.length - 1), "submitted.html"].join("/");
 const submitted = sessionStorage.getItem("formSubmitted") === "submitted";
 if (submitted) {
     const formBtn = <HTMLButtonElement> document.querySelector("form > button");
@@ -112,9 +109,10 @@ document.addEventListener("submit", (e: SubmitEvent) => {
     }).then((response) => {
         if (response.status) {
             sessionStorage.setItem("formSubmitted", "submitted");
-            //window.location.href = submitUrl;
             formElem?.querySelector("button")?.classList.remove("submitting");
             document.querySelector("dialog")?.showModal();
+            const formBtn = <HTMLButtonElement> document.querySelector("form > button");
+            formBtn.disabled = true;
             return;
         }
         throw new Error("Could not submit request");
@@ -126,6 +124,12 @@ document.addEventListener("submit", (e: SubmitEvent) => {
         console.error(error);
     });
 });
+
+const dialog = document.querySelector("dialog");
+const dialogClose = <HTMLButtonElement> dialog.querySelector("button.close");
+dialogClose.addEventListener("click", (e) => {
+    dialog.close();
+})
 
 // Set correct year footer
 const copyRightDiv = footer?.children.item(2)?.children.item(1);
