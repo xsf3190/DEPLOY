@@ -10,6 +10,7 @@ env:
   TEMPLATE: ${{ github.event.client_payload.template }}
   FETCH_URL: ${{ github.event.client_payload.fetch_url }}
   LOG_URL: ${{ github.event.client_payload.log_url }}
+  APEX_SESSION: ${{ github.event.client_payload.apex_session }}
 jobs:
   build_page:
     name: Build page
@@ -18,6 +19,14 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
+      # Print environment variales passed from Oracle CMS
+      - run: |
+          echo "BUILD_PATH:${BUILD_PATH}" >> $GITHUB_OUTPUT
+          echo "TEMPLATE:${TEMPLATE}" >> $GITHUB_OUTPUT
+          echo "FETCH_URL:${FETCH_URL}" >> $GITHUB_OUTPUT
+          echo "LOG_URL:${LOG_URL}" >> $GITHUB_OUTPUT
+          echo "APEX_SESSION:${APEX_SESSION}" >> $GITHUB_OUTPUT
+          
       # Log status
       - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Github action started"}'
       
