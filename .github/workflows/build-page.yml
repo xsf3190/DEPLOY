@@ -21,11 +21,11 @@ jobs:
     steps:
       # Print environment variales passed from Oracle CMS
       - run: |
-          echo "BUILD_PATH:${BUILD_PATH}" >> $GITHUB_OUTPUT
-          echo "TEMPLATE:${TEMPLATE}" >> $GITHUB_OUTPUT
-          echo "FETCH_URL:${FETCH_URL}" >> $GITHUB_OUTPUT
-          echo "LOG_URL:${LOG_URL}" >> $GITHUB_OUTPUT
-          echo "APEX_SESSION:${APEX_SESSION}" >> $GITHUB_OUTPUT
+          echo "BUILD_PATH:${BUILD_PATH}"
+          echo "TEMPLATE:${TEMPLATE}"
+          echo "FETCH_URL:${FETCH_URL}"
+          echo "LOG_URL:${LOG_URL}"
+          echo "APEX_SESSION:${APEX_SESSION}"
           
       # Log status
       - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Github action started"}'
