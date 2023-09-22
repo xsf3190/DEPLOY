@@ -43,7 +43,7 @@ jobs:
           exit "$exitcode"
 
       #  Remove any existing BUILD_PATH directory and its contents
-      - run: rm -v ./${BUILD_PATH}/*
+      - run: if [ -d "./${BUILD_PATH}" ]; then rm -v ./${BUILD_PATH}/*; fi
       
       #  Build with Eleventy
       - run: |
