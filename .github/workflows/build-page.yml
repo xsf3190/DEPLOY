@@ -52,7 +52,13 @@ jobs:
           exit "$exitcode"
 
       #  Remove any existing BUILD_PATH directory and its contents
-      - run: if [ -d "./${BUILD_PATH}" ]; then rm -v ./${BUILD_PATH}/*; fi
+      - run: |
+          set +e
+          rm -rvf ./${BUILD_PATH}
+          exitcode="$?"
+          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+          curl -X POST ${LOG_URL}?${exitcode} -H 'Content-Type:application/json' -d '{"status":"Clean target directory"}'
+          exit "$exitcode"
       
       #  Build with Eleventy
       - run: |
