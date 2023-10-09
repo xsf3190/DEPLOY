@@ -28,9 +28,8 @@ jobs:
           echo "APEX_SESSION:${APEX_SESSION}"
           
       # Log status
-      - run: curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d {"status":"Github action started","exitcode":0}
-      
-      # Get latest updates repo
+      - run: curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Github action started\",\"exitcode\":0}" 
+      # Get latest updates"epo
       - uses: actions/checkout@v3
 
       # Install node
@@ -48,7 +47,7 @@ jobs:
           npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile ./TEMPLATES/$TEMPLATE/index.js
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d {"status":"Transpile Typescript","exitcode":${exitcode}}'
+          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Transpile Typescript\",\"exitcode\":${exitcode}}"
           exit "$exitcode"
 
       #  Remove any existing BUILD_PATH directory and its contents
