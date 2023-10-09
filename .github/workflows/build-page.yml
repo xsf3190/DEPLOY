@@ -29,7 +29,7 @@ jobs:
           
       # Log status
       - run: curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Github action started\",\"exitcode\":0}" 
-      # Get latest updates"epo
+      # Get latest updates
       - uses: actions/checkout@v3
 
       # Install node
@@ -56,7 +56,7 @@ jobs:
           rm -rvf ./${BUILD_PATH}
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL}?${exitcode} -H 'Content-Type:application/json' -d '{"status":"Clean target directory"}'
+          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Clean target directory\",\"exitcode\":${exitcode}}"
           exit "$exitcode"
       
       #  Build with Eleventy
@@ -65,7 +65,7 @@ jobs:
           npx @11ty/eleventy
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL}?${exitcode} -H 'Content-Type:application/json' -d '{"status":"Eleventy build pages"}'
+          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Eleventy build pages\",\"exitcode\":${exitcode}}"
           exit "$exitcode"
           
       # Git push build
@@ -78,5 +78,5 @@ jobs:
           git push
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL}?${exitcode} -H 'Content-Type:application/json' -d '{"status":"Github action completed"}'
+          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Github action completed\",\"exitcode\":${exitcode}}"
           exit "$exitcode"
