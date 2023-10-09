@@ -28,7 +28,7 @@ jobs:
           echo "APEX_SESSION:${APEX_SESSION}"
           
       # Log status
-      - run: curl -X POST ${LOG_URL} -H 'Content-Type:application/json' -d '{"status":"Github action started"}'
+      - run: curl -X POST ${LOG_URL} -H 'Apex-Session:${APEX_SESSION}' -H 'Content-Type:application/json' -d '{"status":"Github action started"}'
       
       # Get latest updates repo
       - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
           npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile ./TEMPLATES/$TEMPLATE/index.js
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL}?exitcode=${exitcode} -H 'Apex-Session:${APEX_SESSION}' -H 'Content-Type:application/json' -d '{"status":"Transpile Typescript"}'
+          curl -X POST ${LOG_URL} -H 'Apex-Session:${APEX_SESSION}' -H 'Content-Type:application/json' -d '{"status":"Transpile Typescript","exitcode":"${exitcode}"}'
           exit "$exitcode"
 
       #  Remove any existing BUILD_PATH directory and its contents
