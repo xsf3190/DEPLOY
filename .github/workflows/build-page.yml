@@ -11,6 +11,7 @@ env:
   FETCH_URL: ${{ github.event.client_payload.fetch_url }}
   LOG_URL: ${{ github.event.client_payload.log_url }}
   APEX_SESSION: ${{ github.event.client_payload.apex_session }}
+  SITE_ID: ${{ github.event.client_payload.site_id }}
 jobs:
   build_page:
     name: Build page
@@ -26,9 +27,10 @@ jobs:
           echo "FETCH_URL:${FETCH_URL}"
           echo "LOG_URL:${LOG_URL}"
           echo "APEX_SESSION:${APEX_SESSION}"
+          echo "SITE_ID:${SITE_ID}"
           
       # Log status
-      - run: curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Github action started\",\"exitcode\":0}" 
+      - run: curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"site_id\":\"${SITE_ID}\",\"status\":\"Github action started\",\"exitcode\":0}" 
       # Get latest updates
       - uses: actions/checkout@v3
 
@@ -47,7 +49,7 @@ jobs:
           npx tsc ./TEMPLATES/$TEMPLATE/index.ts --outFile ./TEMPLATES/$TEMPLATE/index.js
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Transpile Typescript\",\"exitcode\":${exitcode}}"
+          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"site_id\":\"${SITE_ID}\",\"status\":\"Transpile Typescript\",\"exitcode\":${exitcode}}"
           exit "$exitcode"
 
       #  Remove any existing BUILD_PATH directory and its contents
@@ -56,7 +58,7 @@ jobs:
           rm -rvf ./${BUILD_PATH}
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Clean target directory\",\"exitcode\":${exitcode}}"
+          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"site_id\":\"${SITE_ID}\",\"status\":\"Clean target directory\",\"exitcode\":${exitcode}}"
           exit "$exitcode"
       
       #  Build with Eleventy
@@ -65,7 +67,7 @@ jobs:
           npx @11ty/eleventy
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Eleventy build pages\",\"exitcode\":${exitcode}}"
+          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"site_id\":\"${SITE_ID}\",\"status\":\"Eleventy build pages\",\"exitcode\":${exitcode}}"
           exit "$exitcode"
           
       # Git push build
@@ -78,5 +80,5 @@ jobs:
           git push
           exitcode="$?"
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"status\":\"Github action completed\",\"exitcode\":${exitcode}}"
+          curl -X POST ${LOG_URL} -H "Apex-Session:${APEX_SESSION}" -H 'Content-Type:application/json' -d "{\"site_id\":\"${SITE_ID}\",\"status\":\"Github action completed\",\"exitcode\":${exitcode}}"
           exit "$exitcode"
