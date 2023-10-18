@@ -7,6 +7,7 @@ module.exports = async function() {
             headers: {"Apex-Session": process.env.APEX_SESSION},
         });
         const result = await answer.json();
+        console.log("return content from CMS");
         return result;
     } catch (err) {
         console.log("Error fetching website data: ", err);

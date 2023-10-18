@@ -5,7 +5,7 @@
   "main": "no",
   "scripts": {
     "local": "npx @11ty/eleventy --serve",
-    "dev": "tsc ./TEMPLATES/BIT_TEMPLATE/index.ts --outFile ./TEMPLATES/BIT_TEMPLATE/index.js -w"
+    "dev": "tsc ./TEMPLATES/BASIC/index.ts --outFile ./TEMPLATES/BASIC/index.js -w"
   },
   "repository": {
     "type": "git",

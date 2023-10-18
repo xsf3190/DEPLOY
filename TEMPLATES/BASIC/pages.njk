@@ -13,6 +13,7 @@ permalink: /{{ page.path_name | slugify }}.html
             {% else  %}
                 <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
             {% endif %}
+            
         </header>
         <main>
             {% if p.path_name == "contact" %}
