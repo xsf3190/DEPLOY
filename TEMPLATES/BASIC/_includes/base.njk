@@ -54,7 +54,7 @@
             </a>
             <div>
                 <a href="index.html">
-                    <img src="{{ fetched.website.favicon_url }}" alt="Believe In Talking Favicon" />
+                    <img src="{{ fetched.website.favicon_url }}" alt="Website Favicon" />
                 </a>
                 <a id="email" href="mailTo:{{ fetched.website.contact_email }}">{{ fetched.website.contact_email }}</a>
             </div>
@@ -141,6 +141,12 @@
         </svg>
     </button>
     <script src={{ "index.js" | addScript }}></script>
+    <script type="module">
+        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals?module';
+        onCLS(sendCWV);
+        onFID(sendCWV);
+        onLCP(sendCWV);
+    </script>
 </body>
 
 </html>

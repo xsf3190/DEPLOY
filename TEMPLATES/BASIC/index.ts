@@ -5,6 +5,9 @@ const wrapper = document.body.children.item(0);
 const footer = wrapper?.children.item(2);
 const nav = document.body.children.item(1);
 const button = document.body.children.item(2);
+const website_id = document.querySelector("[name='website_id']");
+const article_id = document.querySelector("[name='article_id']");
+const visit_url = document.querySelector("[name='visit_url']");
 var navOpen = false;
 
 // Menu logic
@@ -125,14 +128,20 @@ document.addEventListener("submit", (e: SubmitEvent) => {
     });
 });
 
-const dialog = document.querySelector("dialog");
-const dialogClose = <HTMLButtonElement> dialog.querySelector("button.close");
-dialogClose.addEventListener("click", (e) => {
-    dialog.close();
+const popupClose = document.querySelector("dialog button.close");
+popupClose?.addEventListener("click", () => {
+    document.querySelector("dialog")?.close();
 })
 
-// Set correct year footer
+// Set correct year in footer
 const copyRightDiv = footer?.children.item(2)?.children.item(1);
 if (copyRightDiv) {
     copyRightDiv.innerHTML = new Date().getFullYear().toString();
+}
+
+const sendCWV = ({name,value,rating}) => {
+        const url = visit_url.value;
+        const body =JSON.stringify( {referrer: document.referrer, website_id: website_id.value, article_id: article_id.value, cwv_name: name, cwv_value: value, cwv_rating: rating });
+        //console.log(body);
+        (navigator.sendBeacon && navigator.sendBeacon(url, body)) || fetch(url, {body, method: 'POST', keepalive: true});
 }

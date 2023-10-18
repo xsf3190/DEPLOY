@@ -9,11 +9,11 @@ permalink: /{{ page.path_name | slugify }}.html
     {% for p in pagination.items %}
         <header>
             {% if p.display_order == 1 %}
-                <img class="keepOpenImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
+                <img class="keepOpenImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}" width="{{ p.assets[0].width }}" height="{{ p.assets[0].height }}">
             {% else  %}
-                <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
+                <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}" width="{{ p.assets[0].width }}" height="{{ p.assets[0].height }}">
             {% endif %}
-            
+
         </header>
         <main>
             {% if p.path_name == "contact" %}
@@ -50,7 +50,7 @@ permalink: /{{ page.path_name | slugify }}.html
                     {%- for pageNav in fetched.articles -%}
                         {% if pageNav.display_order != 1 %}
                                 <a href="/{{pageNav.path_name}}.html">
-                                    <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" />
+                                    <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" width="{{ pageNav.assets[0].width }}" height="{{ pageNav.assets[0].height }}"/>
                                     <span>{{ pageNav.nav_name }}</span>
                                 </a>
                         {% endif %}
@@ -62,4 +62,8 @@ permalink: /{{ page.path_name | slugify }}.html
                 </section>
             {% endif %}
         </main>
+        <!-- Hidden input fields referenced in cwv beacon API fetch -->
+        <input type="hidden" name="visit_url" value="{{ fetched.website.visit_url }}"/>
+        <input type="hidden" name="website_id" value="{{ fetched.website.id }}"/>
+        <input type="hidden" name="article_id" value="{{ p.article_id }}"/>
     {% endfor %}

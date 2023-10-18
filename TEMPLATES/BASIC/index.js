@@ -5,6 +5,9 @@ var wrapper = document.body.children.item(0);
 var footer = wrapper === null || wrapper === void 0 ? void 0 : wrapper.children.item(2);
 var nav = document.body.children.item(1);
 var button = document.body.children.item(2);
+var website_id = document.querySelector("[name='website_id']");
+var article_id = document.querySelector("[name='article_id']");
+var visit_url = document.querySelector("[name='visit_url']");
 var navOpen = false;
 // Menu logic
 if (wrapper && nav && button) {
@@ -123,13 +126,20 @@ document.addEventListener("submit", function (e) {
         console.error(error);
     });
 });
-var dialog = document.querySelector("dialog");
-var dialogClose = dialog.querySelector("button.close");
-dialogClose.addEventListener("click", function (e) {
-    dialog.close();
+var popupClose = document.querySelector("dialog button.close");
+popupClose === null || popupClose === void 0 ? void 0 : popupClose.addEventListener("click", function () {
+    var _a;
+    (_a = document.querySelector("dialog")) === null || _a === void 0 ? void 0 : _a.close();
 });
-// Set correct year footer
+// Set correct year in footer
 var copyRightDiv = (_c = footer === null || footer === void 0 ? void 0 : footer.children.item(2)) === null || _c === void 0 ? void 0 : _c.children.item(1);
 if (copyRightDiv) {
     copyRightDiv.innerHTML = new Date().getFullYear().toString();
 }
+var sendCWV = function (_a) {
+    var name = _a.name, value = _a.value, rating = _a.rating;
+    var url = visit_url.value;
+    var body = JSON.stringify({ referrer: document.referrer, website_id: website_id.value, article_id: article_id.value, cwv_name: name, cwv_value: value, cwv_rating: rating });
+    //console.log(body);
+    (navigator.sendBeacon && navigator.sendBeacon(url, body)) || fetch(url, { body: body, method: 'POST', keepalive: true });
+};
