@@ -9,17 +9,20 @@
 
     <link rel="apple-touch-icon" href="favicon-180x180.png">
 
-    <link rel="stylesheet" href="style.css?v=1697367927310">
+    <link rel="stylesheet" href="style.css?v=1697704406966">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
     <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100;400&display=swap" rel="stylesheet">
 
-    <title></title>
+    
+        <title></title>
+        <meta name="description" content="">
+    
+    
     <meta name="generator" content="Eleventy v2.0.1">
-    <meta name="description" content="Believe in Talking">
     <meta name="keywords" content="counseling">
-    <meta name="author" content="Anna Brown">
+    <meta name="author" content="Mark Russell Brown">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Believe in Talking">
@@ -40,22 +43,21 @@
             
         <header>
             
-                <img class="keepOpenImage" src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_313/4-size-guide_xpu5xy" alt="">
+                <img class="closedImage" src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_313/4-size-guide_yt9nzq_xiv2zk" alt="">
             
+
         </header>
         <main>
             
-                <section class="noBorder">
-                    <h1>SHOULD BE PRODUCTION</h1><p>lorks what a palava to get this to appear in markrussellbrown.com</p>
+                <section class="redBorder">
+                    <h1>dolly dog title</h1><p>dolly dog content</p>
                 </section>
-                <div class="image-nav">
-                                <a href="/page-two.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_750/52ac8996-3460-cf71-cb42-5c4d0aa29b74_lkxqcl" alt="" />
-                                    <span>page two</span>
-                                </a>
-                        </div>
             
         </main>
+        <!-- Hidden input fields referenced in cwv beacon API fetch -->
+        <input type="hidden" name="visit_url" value="https://hl7offzwezq2cal-db202103270929.adb.uk-london-1.oraclecloudapps.com/ords/api/public/page-visit"/>
+        <input type="hidden" name="website_id" value="1002"/>
+        <input type="hidden" name="article_id" value="22241"/>
     
 
         <footer>
@@ -64,7 +66,7 @@
             </a>
             <div>
                 <a href="index.html">
-                    <img src="" alt="Believe In Talking Favicon" />
+                    <img src="" alt="Website Favicon" />
                 </a>
                 <a id="email" href="mailTo:"></a>
             </div>
@@ -110,11 +112,7 @@
     
 
 
-    <nav>
-        
-            <a href="/page-two.html">page two</a>
-        
-    </nav>
+    <nav></nav>
     
     <button>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 297">
@@ -140,7 +138,13 @@
             </g>
         </svg>
     </button>
-    <script src=index.js?v=1697367927310></script>
+    <script src=index.js?v=1697704406966></script>
+    <script type="module">
+        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals?module';
+        onCLS(sendCWV);
+        onFID(sendCWV);
+        onLCP(sendCWV);
+    </script>
 </body>
 
 </html>
