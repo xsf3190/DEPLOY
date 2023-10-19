@@ -9,17 +9,20 @@
 
     <link rel="apple-touch-icon" href="favicon-180x180.png">
 
-    <link rel="stylesheet" href="style.css?v=1697467297335">
+    <link rel="stylesheet" href="style.css?v=1697704803077">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
     <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100;400&display=swap" rel="stylesheet">
 
-    <title></title>
+    
+        <title></title>
+        <meta name="description" content="">
+    
+    
     <meta name="generator" content="Eleventy v2.0.1">
-    <meta name="description" content="Believe in Talking">
     <meta name="keywords" content="counseling">
-    <meta name="author" content="Anna Brown">
+    <meta name="author" content="frances brown">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Believe in Talking">
@@ -42,6 +45,7 @@
             
                 <img class="keepOpenImage" src="https://res.cloudinary.com/mrbapex/q_auto,f_auto/appear_first_hmhkxb" alt="">
             
+
         </header>
         <main>
             
@@ -49,13 +53,17 @@
                     <h1>Some title</h1><p>Some paragraph</p>
                 </section>
                 <div class="image-nav">
-                                <a href="/must-have-a-nav-name.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_313/4-size-guide_vgerwu" alt="" />
-                                    <span>Must have a nav name</span>
+                                <a href="/page-2-nav-label.html">
+                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_313/4-size-guide_vgerwu" alt="" width="125" height="125"/>
+                                    <span>Page 2 nav label</span>
                                 </a>
                         </div>
             
         </main>
+        <!-- Hidden input fields referenced in cwv beacon API fetch -->
+        <input type="hidden" name="visit_url" value="https://hl7offzwezq2cal-db202103270929.adb.uk-london-1.oraclecloudapps.com/ords/api/public/page-visit"/>
+        <input type="hidden" name="website_id" value="906"/>
+        <input type="hidden" name="article_id" value="22229"/>
     
 
         <footer>
@@ -64,9 +72,9 @@
             </a>
             <div>
                 <a href="index.html">
-                    <img src="" alt="Believe In Talking Favicon" />
+                    <img src="" alt="Website Favicon" />
                 </a>
-                <a id="email" href="mailTo:"></a>
+                <a id="email" href="mailTo:mark.russellbrown@gmail.com">mark.russellbrown@gmail.com</a>
             </div>
             <div>
                 <span>&copy;</span>
@@ -112,7 +120,7 @@
 
     <nav>
         
-            <a href="/must-have-a-nav-name.html">Must have a nav name</a>
+            <a href="/page-2-nav-label.html">Page 2 nav label</a>
         
     </nav>
     
@@ -140,7 +148,13 @@
             </g>
         </svg>
     </button>
-    <script src=index.js?v=1697467297335></script>
+    <script src=index.js?v=1697704803077></script>
+    <script type="module">
+        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals?module';
+        onCLS(sendCWV);
+        onFID(sendCWV);
+        onLCP(sendCWV);
+    </script>
 </body>
 
 </html>

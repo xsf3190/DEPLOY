@@ -123,13 +123,22 @@ document.addEventListener("submit", function (e) {
         console.error(error);
     });
 });
-var dialog = document.querySelector("dialog");
-var dialogClose = dialog.querySelector("button.close");
-dialogClose.addEventListener("click", function (e) {
-    dialog.close();
+var popupClose = document.querySelector("dialog button.close");
+popupClose === null || popupClose === void 0 ? void 0 : popupClose.addEventListener("click", function () {
+    var _a;
+    (_a = document.querySelector("dialog")) === null || _a === void 0 ? void 0 : _a.close();
 });
-// Set correct year footer
+// Set correct year in footer
 var copyRightDiv = (_c = footer === null || footer === void 0 ? void 0 : footer.children.item(2)) === null || _c === void 0 ? void 0 : _c.children.item(1);
 if (copyRightDiv) {
     copyRightDiv.innerHTML = new Date().getFullYear().toString();
 }
+var sendCWV = function (_a) {
+    var name = _a.name, value = _a.value, rating = _a.rating;
+    var website_id = document.querySelector("[name='website_id']").value;
+    var article_id = document.querySelector("[name='article_id']").value;
+    var cwv_url = document.querySelector("[name='visit_url']").value;
+    var body = JSON.stringify({ referrer: document.referrer, website_id: website_id, article_id: article_id, cwv_name: name, cwv_value: value, cwv_rating: rating });
+    //console.log(body);
+    (navigator.sendBeacon && navigator.sendBeacon(cwv_url, body)) || fetch(cwv_url, { body: body, method: 'POST', keepalive: true });
+};
