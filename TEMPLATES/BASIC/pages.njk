@@ -9,9 +9,9 @@ permalink: /{{ page.path_name | slugify }}.html
     {% for p in pagination.items %}
         <header>
             {% if p.display_order == 1 %}
-                <img class="keepOpenImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}" width="{{ p.assets[0].width }}" height="{{ p.assets[0].height }}">
+                <img class="keepOpenImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
             {% else  %}
-                <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}" width="{{ p.assets[0].width }}" height="{{ p.assets[0].height }}">
+                <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
             {% endif %}
 
         </header>

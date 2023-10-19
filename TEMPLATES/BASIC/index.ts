@@ -5,9 +5,6 @@ const wrapper = document.body.children.item(0);
 const footer = wrapper?.children.item(2);
 const nav = document.body.children.item(1);
 const button = document.body.children.item(2);
-const website_id = document.querySelector("[name='website_id']");
-const article_id = document.querySelector("[name='article_id']");
-const visit_url = document.querySelector("[name='visit_url']");
 var navOpen = false;
 
 // Menu logic
@@ -140,8 +137,11 @@ if (copyRightDiv) {
 }
 
 const sendCWV = ({name,value,rating}) => {
-        const url = visit_url.value;
-        const body =JSON.stringify( {referrer: document.referrer, website_id: website_id.value, article_id: article_id.value, cwv_name: name, cwv_value: value, cwv_rating: rating });
-        //console.log(body);
-        (navigator.sendBeacon && navigator.sendBeacon(url, body)) || fetch(url, {body, method: 'POST', keepalive: true});
+    const website_id = (<HTMLInputElement>document.querySelector("[name='website_id']")).value;
+    const article_id =  (<HTMLInputElement>document.querySelector("[name='article_id']")).value;
+    const cwv_url =  (<HTMLInputElement>document.querySelector("[name='visit_url']")).value;
+
+    const body =JSON.stringify( {referrer: document.referrer, website_id: website_id, article_id: article_id, cwv_name: name, cwv_value: value, cwv_rating: rating });
+    //console.log(body);
+    (navigator.sendBeacon && navigator.sendBeacon(cwv_url, body)) || fetch(cwv_url, {body, method: 'POST', keepalive: true});
 }
