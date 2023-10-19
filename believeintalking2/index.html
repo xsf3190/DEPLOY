@@ -9,17 +9,20 @@
 
     <link rel="apple-touch-icon" href="favicon-180x180.png">
 
-    <link rel="stylesheet" href="style.css?v=1697287028805">
+    <link rel="stylesheet" href="style.css?v=1697706471450">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
     <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100;400&display=swap" rel="stylesheet">
 
-    <title></title>
+    
+        <title>Home page TITLE</title>
+        <meta name="description" content="Proper description for the home page of hunbucket&#39;s web site">
+    
+    
     <meta name="generator" content="Eleventy v2.0.1">
-    <meta name="description" content="Believe in Talking">
     <meta name="keywords" content="counseling">
-    <meta name="author" content="Anna Brown">
+    <meta name="author" content="Mark Russell Brown">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Believe in Talking">
@@ -42,6 +45,7 @@
             
                 <img class="keepOpenImage" src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_474/icon_r8kphi" alt="">
             
+
         </header>
         <main>
             
@@ -50,37 +54,41 @@
                 </section>
                 <div class="image-nav">
                                 <a href="/me-counsellor.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/about_xdxajx" alt="" />
+                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/about_xdxajx" alt="" width="1008" height="756"/>
                                     <span>Me (Counsellor)</span>
                                 </a>
                         
                                 <a href="/you-client.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/client_otzgbt" alt="description although zero" />
+                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/client_otzgbt" alt="description although zero" width="1008" height="756"/>
                                     <span>You (Client)</span>
                                 </a>
                         
                                 <a href="/practicalities.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/practicalities_e7vxsw" alt="" />
+                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/practicalities_e7vxsw" alt="" width="1008" height="756"/>
                                     <span>Practicalities</span>
                                 </a>
                         
                                 <a href="/the-problems.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/problems_myf9bb" alt="" />
+                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/problems_myf9bb" alt="" width="1008" height="756"/>
                                     <span>The Problems</span>
                                 </a>
                         
                                 <a href="/counselling-room.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/room_nml2zy" alt="" />
+                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/room_nml2zy" alt="" width="1008" height="756"/>
                                     <span>Counselling Room</span>
                                 </a>
                         
                                 <a href="/contact.html">
-                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/contact_jz54vo" alt="" />
+                                    <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_2520/contact_jz54vo" alt="" width="1008" height="756"/>
                                     <span>Contact</span>
                                 </a>
                         </div>
             
         </main>
+        <!-- Hidden input fields referenced in cwv beacon API fetch -->
+        <input type="hidden" name="visit_url" value="https://hl7offzwezq2cal-db202103270929.adb.uk-london-1.oraclecloudapps.com/ords/api/public/page-visit"/>
+        <input type="hidden" name="website_id" value="2"/>
+        <input type="hidden" name="article_id" value="20625"/>
     
 
         <footer>
@@ -89,7 +97,7 @@
             </a>
             <div>
                 <a href="index.html">
-                    <img src="https://res.cloudinary.com/mrbapex/image/upload/v1690435688/believeintalking_favicon_q57es4.svg" alt="Believe In Talking Favicon" />
+                    <img src="https://res.cloudinary.com/mrbapex/image/upload/v1690435688/believeintalking_favicon_q57es4.svg" alt="Website Favicon" />
                 </a>
                 <a id="email" href="mailTo:mark.brown@toptal.com">mark.brown@toptal.com</a>
             </div>
@@ -185,7 +193,13 @@
             </g>
         </svg>
     </button>
-    <script src=index.js?v=1697287028806></script>
+    <script src=index.js?v=1697706471451></script>
+    <script type="module">
+        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals?module';
+        onCLS(sendCWV);
+        onFID(sendCWV);
+        onLCP(sendCWV);
+    </script>
 </body>
 
 </html>
