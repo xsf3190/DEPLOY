@@ -12,6 +12,8 @@ env:
   LOG_URL: ${{ github.event.client_payload.log_url }}
   APEX_SESSION: ${{ github.event.client_payload.apex_session }}
   SITE_ID: ${{ github.event.client_payload.site_id }}
+concurrency:
+  group: cms2web
 jobs:
   build_page:
     name: Build page
