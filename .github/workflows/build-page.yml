@@ -5,6 +5,7 @@ on:
     types: trigger_build
 concurrency:
   group: cms2web
+  cancel-in-progress: true
 permissions:
   contents: write
 env:
