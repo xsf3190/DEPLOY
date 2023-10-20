@@ -3,9 +3,6 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: trigger_build
-concurrency:
-  group: cms2web
-  cancel-in-progress: false
 permissions:
   contents: write
 env:
@@ -23,7 +20,7 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-      # Print environment variales passed from Oracle CMS
+      # Print environment variables passed from Oracle CMS
       - run: |
           echo "BUILD_PATH:${BUILD_PATH}"
           echo "TEMPLATE:${TEMPLATE}"
