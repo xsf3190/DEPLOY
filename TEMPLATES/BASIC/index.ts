@@ -1,57 +1,32 @@
 console.log("Welcome!");
 console.log("Please contact us at contact@meijerdesign.nl");
 
-const wrapper = document.body.children.item(0);
-const footer = wrapper?.children.item(2);
-const nav = document.body.children.item(1);
-const button = document.body.children.item(2);
-var navOpen = false;
+// Menu 
+const button = document.querySelector("[aria-label='Navigation Menu']");
+const nav = document.querySelector("nav.text");
+const main = document.querySelector("main");
 
-// Menu logic
-if (wrapper && nav && button) {
-    button.addEventListener("click", () => {
-        if (!wrapper || !nav || !button) return;
+let navOpen = false;
 
-        if (navOpen) {
-            wrapper.classList.remove("fade");
-            nav.classList.remove("navOpen");
-            button.classList.remove("closeButton");
-        } else {
-            wrapper.classList.add("fade");
-            nav.classList.add("navOpen");
-            button.classList.add("closeButton");
-        }
-        navOpen = !navOpen;
-    });
+button.addEventListener("click", () => {
+  if (navOpen) {
+    nav.classList.remove("navOpen");
+    button.classList.remove("closeButton");
+    main.classList.remove("fade");
+  } else {
+    nav.classList.add("navOpen");
+    button.classList.add("closeButton");
+    main.classList.add("fade");
+  }
+  navOpen = !navOpen;
+});
 
-    wrapper.addEventListener("click", (e: Event) => {
-        if (!wrapper || !nav || !button) return;
-
-        if (navOpen) {
-            navOpen = !navOpen;
-            wrapper.classList.remove("fade");
-            nav.classList.remove("navOpen");
-            button.classList.remove("closeButton");
-            e.preventDefault();
-        }
-    });
-
-    const firstChildHeader = wrapper.children.item(0)?.children.item(0);
-    if (firstChildHeader?.tagName === "IMG") {
-        firstChildHeader.addEventListener("click", () => {
-            if(navOpen) return;
-            firstChildHeader.classList.add("openImage");
-            setTimeout(() => {
-                firstChildHeader.classList.remove("openImage");
-            }, 3000);
-        });
+const formBtn = <HTMLButtonElement> document.querySelector("form > button");
+if (formBtn) {
+    const submitted = sessionStorage.getItem("formSubmitted") === "submitted";
+    if (submitted) {
+        formBtn.disabled = true;
     }
-}
-
-const submitted = sessionStorage.getItem("formSubmitted") === "submitted";
-if (submitted) {
-    const formBtn = <HTMLButtonElement> document.querySelector("form > button");
-    formBtn.disabled = true;
 }
 
 // Contact Form
@@ -130,18 +105,12 @@ popupClose?.addEventListener("click", () => {
     document.querySelector("dialog")?.close();
 })
 
-// Set correct year in footer
-const copyRightDiv = footer?.children.item(2)?.children.item(1);
-if (copyRightDiv) {
-    copyRightDiv.innerHTML = new Date().getFullYear().toString();
-}
-
 const sendCWV = ({name,value,rating}) => {
     const website_id = (<HTMLInputElement>document.querySelector("[name='website_id']")).value;
     const article_id =  (<HTMLInputElement>document.querySelector("[name='article_id']")).value;
     const cwv_url =  (<HTMLInputElement>document.querySelector("[name='visit_url']")).value;
 
     const body =JSON.stringify( {referrer: document.referrer, website_id: website_id, article_id: article_id, cwv_name: name, cwv_value: value, cwv_rating: rating });
-    //console.log(body);
+    //console.log(name,value,rating,document.referrer);
     (navigator.sendBeacon && navigator.sendBeacon(cwv_url, body)) || fetch(cwv_url, {body, method: 'POST', keepalive: true});
 }

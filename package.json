@@ -4,7 +4,7 @@
   "description": "",
   "main": "no",
   "scripts": {
-    "local": "npx @11ty/eleventy --serve",
+    "local": "npx @11ty/eleventy --serve --port=8081",
     "dev": "tsc ./TEMPLATES/BASIC/index.ts --outFile ./TEMPLATES/BASIC/index.js -w"
   },
   "repository": {

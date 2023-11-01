@@ -37,7 +37,6 @@ body {
     font-family: Georgia, sans-serif;
     font-size: var(--font-size-m);
     line-height: 1.5;
-    margin: 0;
 }
   
 img {
@@ -49,68 +48,104 @@ img {
 
 nav ul {
   list-style: none;
+  padding: 0;
 }
-  
-nav.text {
-    /*position:sticky;
-    top: 0;*/
-}
-  
-nav.text > button {
+
+[aria-label='Navigation Menu'] {
+    position: sticky;
+    top: 0;
     border: 0;
     background-color: transparent;
     cursor: pointer;
-    display: block;
+    inline-size: var(--space-m);
 }
 
+[aria-label='Navigation Menu'] path {
+    transition: opacity 0.4s ease-in-out, fill 0.4s ease-in-out;
+    fill: var(--theme-color-inverted);
+}
+  
+[aria-label='Navigation Menu'].closeButton path:nth-of-type(even) {
+    opacity: 0;
+}
+
+  /*
+  **  TEXT NAVIGATION CARDS
+  */
 nav.text > button > svg {
     block-size:  var(--space-l);
     aspect-ratio: 1;
 }
-  
+
+nav.text img {
+    block-size:  var(--space-l);
+    inline-size:  var(--space-l);
+}
+
+nav.text li {
+    cursor: pointer;
+    border-radius: var(--space-xs);
+}
+
+nav.text li:has(img) {
+    text-align: center;
+}
+
+nav.text li:not(:has(img)):hover {
+    background-color: var(--theme-color-hover);
+}
+
+nav.text li:has(img):hover {
+    transform: scale(1.1);
+    transition: transform(0.3s);
+}
+
+nav.text a {
+    text-decoration: none;
+    padding: var(--space-2xs) var(--space-s);
+    display: block;
+}
+
 a:visited,
 a:active,
 a:link {
     color: inherit;
 }
   
-nav.text > button path {
-    transition: opacity 0.4s ease-in-out, fill 0.4s ease-in-out;
-    fill: var(--theme-color-inverted);
-}
+
   
-nav.text > button.closeButton path:nth-of-type(even) {
-    opacity: 0;
-}
-  
-/* Navigation */
-/*
-nav.menu {
-    display: flex;
+/* NAVIGATION CONTENT SHOWN ON BUTTON CLICK c*/
+
+nav.text {
     position: fixed;
     max-width: 100%;
-    top: 2.5rem;
-    left: 0;
     opacity: 0;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    gap: var(--space-m);
-    min-height: 100vh;
     transform: translateX(-100%);
     transition: transform 0.4s cubic-bezier(0.55, 0.084, 0, 0.99),
       opacity 0.4s cubic-bezier(0.55, 0.084, 0, 0.99);
     color: var(--theme-color-inverted);
     border-right: 1px solid rgb(210, 210, 210);
-    background-color: var(--theme-color);
+    padding: var(--space-m);
+    background: var(--theme-color);
+    z-index: 1;
   }
   
-  nav.navOpen {
+  nav.text.navOpen {
     transform: translateX(0);
     opacity: 1;
   }
-  */
+
+  nav.text > ul {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-m);
+    min-height: 100vh;
+  }
   
+  /*
+  **  IMAGE NAVIGATION CARDS
+  */
   nav.image a:hover {
     background-color: var(--theme-color-hover);
   }
@@ -142,22 +177,54 @@ nav.menu {
     padding: var(--space-xl);
     border-radius: var(--space-xl);
   }
+
+@media only screen and (max-width: 600px) {
+    section.redBorder {
+        border: none;
+        padding: var(--space-xs);
+    }
+}
   
-  h1 {
+section > h1 {
     font-size: var(--font-size-xl);
     font-weight: 400;
     text-align: center;
-  }
+}
 
-  nav.image > ul {
+section figure {
+    text-align: center;
+}
+
+section ul:has(.with-border) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-m);
+}
+
+section li.with-border {
+    padding: 0 1ch;
+    border-radius: var(--space-m);
+    font-weight: 100;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid var(--theme-color-red);
+    list-style: none;
+}
+
+nav.image {
     inline-size: min(100%,70ch);
+}
+
+nav.image > ul {
     display: grid;
     grid-template-columns: repeat(
       auto-fill,
       minmax(min(100%, 18ch), 1fr)
     );
     gap: var(--space-3xs);
-  }
+}
   
   nav.image a {
     display: grid;
@@ -165,12 +232,12 @@ nav.menu {
     text-decoration: none;
   }
   
-  nav img {
+  nav.image img {
     grid-area: nav-overlay;
     place-self: center;
   }
   
-  nav span {
+  nav.image span {
     grid-area: nav-overlay;
     place-self: center;
     backdrop-filter: blur(2px) brightness(90%);
@@ -180,7 +247,7 @@ nav.menu {
     transition: opacity 0.4s ease-in-out;
   }
   
-  nav a:hover span {
+  nav.image a:hover span {
     opacity: 1;
   }
   

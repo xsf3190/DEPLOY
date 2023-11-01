@@ -10,6 +10,7 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addFilter("addScript", (url) => {
         return url + "?v=" + Date.now();
     });
+    eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
     return {
         dir: {

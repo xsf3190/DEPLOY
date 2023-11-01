@@ -1,61 +1,36 @@
-var _a, _b, _c;
+var _a;
 console.log("Welcome!");
 console.log("Please contact us at contact@meijerdesign.nl");
-var wrapper = document.body.children.item(0);
-var footer = wrapper === null || wrapper === void 0 ? void 0 : wrapper.children.item(2);
-var nav = document.body.children.item(1);
-var button = document.body.children.item(2);
+// Menu 
+var button = document.querySelector("[aria-label='Navigation Menu']");
+var nav = document.querySelector("nav.text");
+var main = document.querySelector("main");
 var navOpen = false;
-// Menu logic
-if (wrapper && nav && button) {
-    button.addEventListener("click", function () {
-        if (!wrapper || !nav || !button)
-            return;
-        if (navOpen) {
-            wrapper.classList.remove("fade");
-            nav.classList.remove("navOpen");
-            button.classList.remove("closeButton");
-        }
-        else {
-            wrapper.classList.add("fade");
-            nav.classList.add("navOpen");
-            button.classList.add("closeButton");
-        }
-        navOpen = !navOpen;
-    });
-    wrapper.addEventListener("click", function (e) {
-        if (!wrapper || !nav || !button)
-            return;
-        if (navOpen) {
-            navOpen = !navOpen;
-            wrapper.classList.remove("fade");
-            nav.classList.remove("navOpen");
-            button.classList.remove("closeButton");
-            e.preventDefault();
-        }
-    });
-    var firstChildHeader_1 = (_a = wrapper.children.item(0)) === null || _a === void 0 ? void 0 : _a.children.item(0);
-    if ((firstChildHeader_1 === null || firstChildHeader_1 === void 0 ? void 0 : firstChildHeader_1.tagName) === "IMG") {
-        firstChildHeader_1.addEventListener("click", function () {
-            if (navOpen)
-                return;
-            firstChildHeader_1.classList.add("openImage");
-            setTimeout(function () {
-                firstChildHeader_1.classList.remove("openImage");
-            }, 3000);
-        });
+button.addEventListener("click", function () {
+    if (navOpen) {
+        nav.classList.remove("navOpen");
+        button.classList.remove("closeButton");
+        main.classList.remove("fade");
     }
-}
-var submitted = sessionStorage.getItem("formSubmitted") === "submitted";
-if (submitted) {
-    var formBtn = document.querySelector("form > button");
-    formBtn.disabled = true;
+    else {
+        nav.classList.add("navOpen");
+        button.classList.add("closeButton");
+        main.classList.add("fade");
+    }
+    navOpen = !navOpen;
+});
+var formBtn = document.querySelector("form > button");
+if (formBtn) {
+    var submitted = sessionStorage.getItem("formSubmitted") === "submitted";
+    if (submitted) {
+        formBtn.disabled = true;
+    }
 }
 // Contact Form
 var textareaStr = "";
 var formElem = document.querySelector("form");
 var formSpan = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("span");
-(_b = document.querySelector("textarea")) === null || _b === void 0 ? void 0 : _b.addEventListener("input", function () {
+(_a = document.querySelector("textarea")) === null || _a === void 0 ? void 0 : _a.addEventListener("input", function () {
     var _a;
     var area = document.querySelector("textarea");
     if (!area)
@@ -108,8 +83,8 @@ document.addEventListener("submit", function (e) {
             sessionStorage.setItem("formSubmitted", "submitted");
             (_a = formElem === null || formElem === void 0 ? void 0 : formElem.querySelector("button")) === null || _a === void 0 ? void 0 : _a.classList.remove("submitting");
             (_b = document.querySelector("dialog")) === null || _b === void 0 ? void 0 : _b.showModal();
-            var formBtn = document.querySelector("form > button");
-            formBtn.disabled = true;
+            var formBtn_1 = document.querySelector("form > button");
+            formBtn_1.disabled = true;
             return;
         }
         throw new Error("Could not submit request");
@@ -128,17 +103,12 @@ popupClose === null || popupClose === void 0 ? void 0 : popupClose.addEventListe
     var _a;
     (_a = document.querySelector("dialog")) === null || _a === void 0 ? void 0 : _a.close();
 });
-// Set correct year in footer
-var copyRightDiv = (_c = footer === null || footer === void 0 ? void 0 : footer.children.item(2)) === null || _c === void 0 ? void 0 : _c.children.item(1);
-if (copyRightDiv) {
-    copyRightDiv.innerHTML = new Date().getFullYear().toString();
-}
 var sendCWV = function (_a) {
     var name = _a.name, value = _a.value, rating = _a.rating;
     var website_id = document.querySelector("[name='website_id']").value;
     var article_id = document.querySelector("[name='article_id']").value;
     var cwv_url = document.querySelector("[name='visit_url']").value;
     var body = JSON.stringify({ referrer: document.referrer, website_id: website_id, article_id: article_id, cwv_name: name, cwv_value: value, cwv_rating: rating });
-    //console.log(body);
+    //console.log(name,value,rating,document.referrer);
     (navigator.sendBeacon && navigator.sendBeacon(cwv_url, body)) || fetch(cwv_url, { body: body, method: 'POST', keepalive: true });
 };

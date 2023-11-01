@@ -7,15 +7,11 @@ pagination:
 permalink: /{{ page.path_name | slugify }}.html
 ---
     {% for p in pagination.items %}
-        <header>
-            {% if p.display_order == 1 %}
-                <img class="keepOpenImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
-            {% else  %}
-                <img class="closedImage" src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}">
-            {% endif %}
+        
+            <header>
+                <img src="{{ p.assets[0].url }}" alt="{{ p.assets[0].alt_text }}" width="{{ p.assets[0].width }}" height="{{ p.assets[0].height }}">
+            </header>
 
-        </header>
-        <main>
             {% if p.path_name == "contact" %}
                 <section class="noBorder">
                     {{ p.text | safe }}
@@ -46,22 +42,26 @@ permalink: /{{ page.path_name | slugify }}.html
                 <section class="noBorder">
                     {{ p.text | safe }}
                 </section>
-                <div class="image-nav">
+                <nav class="image">
+                    <ul>
                     {%- for pageNav in fetched.articles -%}
                         {% if pageNav.display_order != 1 %}
-                                <a href="/{{pageNav.path_name}}.html">
-                                    <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" width="{{ pageNav.assets[0].width }}" height="{{ pageNav.assets[0].height }}"/>
-                                    <span>{{ pageNav.nav_name }}</span>
-                                </a>
+                        <li>
+                            <a href="/{{pageNav.path_name}}.html">
+                                <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" width="{{ pageNav.assets[0].width }}" height="{{ pageNav.assets[0].height }}"/>
+                                <span>{{ pageNav.nav_name }}</span>
+                            </a>
+                        </li>
                         {% endif %}
                     {%- endfor -%}
-                </div>
+                    </ul>
+                </nav>
             {% else %}
                 <section class="redBorder">
                     {{ p.text | safe }}
                 </section>
             {% endif %}
-        </main>
+        
         <!-- Hidden input fields referenced in cwv beacon API fetch -->
         <input type="hidden" name="visit_url" value="{{ fetched.website.visit_url }}"/>
         <input type="hidden" name="website_id" value="{{ fetched.website.id }}"/>
