@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="https://res.cloudinary.com/mrbapex/image/upload/v1690435688/believeintalking_favicon_q57es4.svg" type="image/svg+xml">
+
+    <link rel="apple-touch-icon" href="favicon-180x180.png">
+
+    <!--
+    <link rel="stylesheet" href="style.css?v=1700389327046">
+    -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100;400&display=swap" rel="stylesheet">
+
+    
+                <title>Mental illnesses including depression, anxiety, burnout</title>
+                <meta name="description" content="List of specialised mental illnesses ">
+            
+    
+    <meta name="generator" content="Eleventy v2.0.1">
+    <meta name="keywords" content="counselling">
+    <meta name="author" content="Anna Jenovari Brown">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Personal Counselling  Services">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image:src" content="https://res.cloudinary.com/mrbapex/image/upload/v1690435688/believeintalking_favicon_q57es4.svg">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Personal Counselling  Services">
+    <meta property="og:description" content="">
+    <!--<meta property="og:url" content="https://believeintalking.com">-->
+    <meta property="og:image" content="https://res.cloudinary.com/mrbapex/image/upload/v1690435688/believeintalking_favicon_q57es4.svg">
+
+    <meta name="theme-color" content="#ffffff">
+    <!-- Inlining the styles to prevent poor CLS rating -->
+    <style>
+        :root {
+    /* Custom properties for fluid type */
+    --font-size-xs: clamp(0.69rem, 0.59rem + 0.45vw, 1.04rem);
+    --font-size-s: clamp(0.83rem, 0.71rem + 0.54vw, 1.25rem);
+    --font-size-m: clamp(1rem, 0.85rem + 0.65vw, 1.5rem);
+    --font-size-l: clamp(1.2rem, 1.03rem + 0.77vw, 1.8rem);
+    --font-size-xl: clamp(1.44rem, 1.23rem + 0.93vw, 2.16rem);
+    --font-size-2xl: clamp(1.73rem, 1.48rem + 1.11vw, 2.59rem);
+  
+    /* Custom properties for fluid spacing */
+    --space-3xs: clamp(0.25rem, 0.21rem + 0.16vw, 0.38rem);
+    --space-2xs: clamp(0.5rem, 0.43rem + 0.32vw, 0.75rem);
+    --space-xs: clamp(0.75rem, 0.64rem + 0.48vw, 1.13rem);
+    --space-s: clamp(1rem, 0.85rem + 0.65vw, 1.5rem);
+    --space-m: clamp(1.5rem, 1.28rem + 0.97vw, 2.25rem);
+    --space-l: clamp(2rem, 1.71rem + 1.29vw, 3rem);
+    --space-xl: clamp(3rem, 2.56rem + 1.94vw, 4.5rem);
+    --space-2xl: clamp(4rem, 3.42rem + 2.58vw, 6rem);
+    --space-3xl: clamp(6rem, 5.13rem + 3.87vw, 9rem);
+  
+    --theme-color: #ffffff;
+    --theme-color-inverted: rgb(25, 25, 25);
+    --theme-color-hover: rgb(245, 245, 245);
+    --theme-color-red: rgba(226, 27, 27, 0.855);
+    --theme-color-grey: rgb(245, 245, 245);
+  }
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+button {
+    padding: 0;
+}
+  
+body {
+    font-family: Georgia, sans-serif;
+    font-size: var(--font-size-m);
+    line-height: 1.5;
+}
+  
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+[aria-label='Navigation Menu'] {
+    position: sticky;
+    top: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    inline-size: var(--space-m);
+}
+
+[aria-label='Navigation Menu'] path {
+    transition: opacity 0.4s ease-in-out, fill 0.4s ease-in-out;
+    fill: var(--theme-color-inverted);
+}
+  
+[aria-label='Navigation Menu'].closeButton path:nth-of-type(even) {
+    opacity: 0;
+}
+
+  /*
+  **  TEXT NAVIGATION CARDS
+  */
+nav.text > button > svg {
+    block-size:  var(--space-l);
+    aspect-ratio: 1;
+}
+
+nav.text img {
+    block-size:  var(--space-l);
+    inline-size:  var(--space-l);
+}
+
+nav.text li {
+    cursor: pointer;
+    border-radius: var(--space-xs);
+}
+
+nav.text li:has(img) {
+    text-align: center;
+}
+
+nav.text li:not(:has(img)):hover {
+    background-color: var(--theme-color-hover);
+}
+
+nav.text li:has(img):hover {
+    transform: scale(1.1);
+    transition: transform(0.3s);
+}
+
+nav.text a {
+    text-decoration: none;
+    padding: var(--space-2xs) var(--space-s);
+    display: block;
+}
+
+a:visited,
+a:active,
+a:link {
+    color: inherit;
+}
+  
+
+  
+/* NAVIGATION CONTENT SHOWN ON BUTTON CLICK c*/
+
+nav.text {
+    position: fixed;
+    max-width: 100%;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.55, 0.084, 0, 0.99),
+      opacity 0.4s cubic-bezier(0.55, 0.084, 0, 0.99);
+    color: var(--theme-color-inverted);
+    border-right: 1px solid rgb(210, 210, 210);
+    padding: var(--space-m);
+    background: var(--theme-color);
+    z-index: 1;
+  }
+  
+  nav.text.navOpen {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  nav.text > ul {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-m);
+    min-height: 100vh;
+  }
+  
+  /*
+  **  IMAGE NAVIGATION CARDS
+  */
+  nav.image a:hover {
+    background-color: var(--theme-color-hover);
+  }
+  
+  .fade {
+    opacity: 0.3;
+  }
+  
+  main {
+    display: grid;
+    grid-gap: var(--space-m);
+    place-items: center;
+    margin-left: var(--space-l);
+  }
+  
+  header {
+    inline-size: min(100%, 30ch);
+    text-align: center;
+  }
+  
+  section {
+    inline-size: min(100%, 50ch);
+    font-weight: 100;
+    text-align: justify;
+  }
+
+  section.redBorder {
+    border: solid 1px var(--theme-color-red);
+    padding: var(--space-xl);
+    border-radius: var(--space-xl);
+  }
+
+@media only screen and (max-width: 600px) {
+    section.redBorder {
+        border: none;
+        padding: var(--space-xs);
+    }
+}
+  
+section > h1 {
+    font-size: var(--font-size-xl);
+    font-weight: 400;
+    text-align: center;
+}
+
+section figure {
+    text-align: center;
+}
+
+section ul:has(.with-border) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-m);
+}
+
+section li.with-border {
+    padding: 0 1ch;
+    border-radius: var(--space-m);
+    font-weight: 100;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid var(--theme-color-red);
+    list-style: none;
+}
+
+nav.image {
+    inline-size: min(100%,70ch);
+}
+
+nav.image > ul {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(100%, 18ch), 1fr)
+    );
+    gap: var(--space-3xs);
+}
+  
+  nav.image a {
+    display: grid;
+    grid-template-areas: "nav-overlay";
+    text-decoration: none;
+  }
+  
+  nav.image img {
+    grid-area: nav-overlay;
+    place-self: center;
+  }
+  
+  nav.image span {
+    grid-area: nav-overlay;
+    place-self: center;
+    backdrop-filter: blur(2px) brightness(90%);
+    color: white;
+    padding: 0.5ch 2ch;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
+  
+  nav.image a:hover span {
+    opacity: 1;
+  }
+  
+  footer {
+    display: grid;
+    grid-template-areas: "footer-overlay";
+    inline-size: 100%;
+  }
+  
+  .footer-template {
+    grid-area: footer-overlay;
+    place-self: center;
+    block-size: 15rem;
+  }
+  
+  .trade-affiliation {
+    grid-area: footer-overlay;
+    place-self: center start;
+    inline-size: var(--space-3xl);
+    margin-block-start: var(--space-2xl);
+  }
+  
+.home {
+    grid-area: footer-overlay;
+    place-self: start center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+}
+  
+.email {
+    grid-area: footer-overlay;
+    place-self: center center;
+    font-size: var(--font-size-s);
+    margin-block-start: calc(var(--space-2xl) * -1);
+}
+  
+.company {
+    grid-area: footer-overlay;
+    place-self: end start;
+    font-size: var(--font-size-xs);
+}
+  
+.developer {
+    grid-area: footer-overlay;
+    place-self: end end;
+}
+  
+.developer > svg {
+    inline-size: var(--space-xl);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-submitted {
+    display: none;
+}
+
+form span {
+    font-size: 0.8rem;
+    font-weight: 100;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.5s ease-in-out, transform 0.4s ease-in-out;
+}
+
+.form-notification {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s 0.5s ease-in-out, transform 0.4s ease-in-out;
+}
+
+form button {
+    background-color: transparent;
+    border: 1px solid var(--theme-color-inverted);
+    color: var(--theme-color-inverted);
+    font-family: inherit;
+    font-weight: 400;
+    width: fit-content;
+    padding: 0.8em;
+    font-size: var(--font-size-s);
+    border-radius: 10rem;
+    align-self: center;
+}
+
+label {
+    font-size: var(--font-size-s);
+    font-weight: 400;
+    width: min-content;
+    align-self: flex-start;
+    cursor: pointer;
+    margin-left: 3rem;
+}
+
+input,
+textarea {
+    background-color: var(--theme-color-grey);
+    padding: 1ch;
+    border-radius: 0.5rem;
+    font-size: var(--font-size-s);
+    font-weight: 100;
+    font-family: ui-monospace,
+        Menlo, Monaco,
+        "Cascadia Mono", "Segoe UI Mono",
+        "Roboto Mono",
+        "Oxygen Mono",
+        "Ubuntu Monospace",
+        "Source Code Pro",
+        "Fira Mono",
+        "Droid Sans Mono",
+        "Courier New", monospace;
+    width: calc(52ch + 2px);
+    max-width: 90%;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid transparent;
+    align-self: center;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border: 1px solid var(--theme-color-inverted);
+    border-radius: 0.5rem;
+}
+
+textarea {
+    min-height: calc(1.4em * 8);
+    resize: vertical;
+    overflow-y: scroll;
+}
+    </style>
+</head>
+
+<body> 
+    <button aria-label="Navigation Menu">
+        <svg viewBox="0 0 297 297">
+    <g>
+        <path d="M66.102,0H15.804C7.089,0,0,7.089,0,15.804v50.298c0,8.715,7.089,15.804,15.804,15.804h50.298
+        c8.715,0,15.804-7.089,15.804-15.804V15.804C81.907,7.089,74.817,0,66.102,0z" />
+        <path d="M173.649,0h-50.298c-8.715,0-15.804,7.089-15.804,15.804v50.298c0,8.715,7.089,15.804,15.804,15.804h50.298
+        c8.715,0,15.804-7.089,15.804-15.804V15.804C189.453,7.089,182.364,0,173.649,0z" />
+        <path d="M281.196,0h-50.298c-8.715,0-15.804,7.089-15.804,15.804v50.298c0,8.715,7.089,15.804,15.804,15.804h50.298
+        c8.715,0,15.804-7.089,15.804-15.804V15.804C297,7.089,289.911,0,281.196,0z" />
+        <path d="M66.102,107.547H15.804C7.089,107.547,0,114.636,0,123.351v50.298c0,8.715,7.089,15.804,15.804,15.804h50.298
+        c8.715,0,15.804-7.089,15.804-15.804v-50.298C81.907,114.636,74.817,107.547,66.102,107.547z" />
+        <path d="M173.649,107.547h-50.298c-8.715,0-15.804,7.089-15.804,15.804v50.298c0,8.715,7.089,15.804,15.804,15.804h50.298
+        c8.715,0,15.804-7.089,15.804-15.804v-50.298C189.453,114.636,182.364,107.547,173.649,107.547z" />
+        <path d="M281.196,107.547h-50.298c-8.715,0-15.804,7.089-15.804,15.804v50.298c0,8.715,7.089,15.804,15.804,15.804h50.298
+        c8.715,0,15.804-7.089,15.804-15.804v-50.298C297,114.636,289.911,107.547,281.196,107.547z" />
+        <path d="M66.102,215.093H15.804C7.089,215.093,0,222.183,0,230.898v50.298C0,289.911,7.089,297,15.804,297h50.298
+        c8.715,0,15.804-7.089,15.804-15.804v-50.298C81.907,222.183,74.817,215.093,66.102,215.093z" />
+        <path d="M173.649,215.093h-50.298c-8.715,0-15.804,7.089-15.804,15.804v50.298c0,8.715,7.089,15.804,15.804,15.804h50.298
+        c8.715,0,15.804-7.089,15.804-15.804v-50.298C189.453,222.183,182.364,215.093,173.649,215.093z" />
+        <path d="M281.196,215.093h-50.298c-8.715,0-15.804,7.089-15.804,15.804v50.298c0,8.715,7.089,15.804,15.804,15.804h50.298
+        c8.715,0,15.804-7.089,15.804-15.804v-50.298C297,222.183,289.911,215.093,281.196,215.093z" />
+    </g>
+</svg>
+    </button>  
+
+    
+        
+    
+
+    <nav class="text">
+        <ul>
+                <li>
+                
+                    <a href="/index.html">
+                        <img src="https://res.cloudinary.com/mrbapex/image/upload/v1690435688/believeintalking_favicon_q57es4.svg" alt="Website brand logo" width="190" height="125"/>
+                    </a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/me-counsellor.html">Me (Counsellor)</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/you-client.html">You (Client)</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/practicalities.html">Practicalities</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/counselling-room.html">Counselling Room</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/contact.html">Contact</a>
+                
+                </li>
+            </ul>
+    </nav>
+    
+
+    <main>
+
+            
+        
+            <header>
+                <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_360/problems_myf9bb" alt="Complexity of branches represent client complexity" width="1008" height="756">
+            </header>
+
+            
+                <section class="redBorder">
+                    <h1>The broad type of problems I help my clients with:</h1><ul><li class="with-border">Abuse</li><li class="with-border">Anxiety</li><li class="with-border">Bereavement</li><li class="with-border">Burnout at work</li><li class="with-border">Cultural and integration issues</li><li class="with-border">Depression</li><li class="with-border">Health related issues</li><li class="with-border">Loss</li><li class="with-border">Low self-esteem</li><li class="with-border">Personal development</li><li class="with-border">Redundancy</li><li class="with-border">Relationship issues</li><li class="with-border">Shyness</li><li class="with-border">Suffering from addiction to social media</li><li class="with-border">Stress</li><li class="with-border">Trauma</li><li class="with-border">Weight gain</li><li class="with-border">Work related issues</li></ul>
+                </section>
+            
+        
+        <!-- Hidden input fields referenced in cwv beacon API fetch -->
+        <input type="hidden" name="visit_url" value="https://hl7offzwezq2cal-db202103270929.adb.uk-london-1.oraclecloudapps.com/ords/api/public/page-visit"/>
+        <input type="hidden" name="website_id" value="2"/>
+        <input type="hidden" name="article_id" value="20627"/>
+    
+
+
+        <footer>
+             <div class="footer-template">
+             </div>
+            <a class="trade-affiliation" target="_blank" href="https://www.bacp.co.uk">
+                <img src="https://res.cloudinary.com/mrbapex/q_auto,f_auto,w_518/BACP-Logo-399856_cwdban.png" alt="Trade affiliation Logo" width="518" height="231"/>
+            </a>
+            <a class="home" href="index.html">
+                <img src="https://res.cloudinary.com/mrbapex/image/upload/v1690435688/believeintalking_favicon_q57es4.svg" alt="Website Favicon" width="150" height="150"/>
+            </a>
+            <a class="email" id="email" href="mailTo:believeintalking@hotmail.com">believeintalking@hotmail.com
+            </a>
+            <div class="company">
+                <span>&copy;</span>
+                <span>2023</span>
+                <span>Believe In Talking Ltd.</span>
+            </div>
+
+            <a class="developer" href="https://meijerdesign.nl"> 
+                <svg viewBox="0 0 343.259 72.067">
+    <g>
+        <path fill="#000000"
+            d="M 0 0 V 24.547 H 15.678 L 15.479 20.459 L 16.871 24.547 H 30.385 L 22.51 0 " />
+        <path fill="#000000" d="M 0 71.094 H 17.139 V 54.492 L 16.752 46.547 H 0 Z" />
+        <path fill="#000000"
+            d="M 32.715 71.094 H 44.043 L 52.383 46.547 H 39.312 L 38.379 49.463 L 37.443 46.547 H 24.359 Z" />
+        <path fill="#000000"
+            d="M 54.199 0 H 76.758 V 24.547 H 61.033 L 61.23 20.508 L 59.858 24.547 H 46.348 Z" />
+        <path fill="#000000" d="M 59.57 71.094 H 76.758 V 46.547 H 59.958 L 59.57 54.492 Z" />
+        <path fill="#000000" d="M 87.646 0 H 136.719 V 13.238 H 104.785 V 24.547 H 87.646 Z" />
+        <path fill="#000000" d="M 87.646 71.095 H 136.621 V 57.911 H 104.785 V 46.547 H 87.646 Z" />
+        <path fill="#000000" d="M 144.775 0 H 161.865 V 24.547 H 144.775 Z" />
+        <path fill="#000000" d="M 144.775 71.095 H 161.865 V 46.547 H 144.775 Z" />
+        <path fill="#000000" d="M 202.1 0 H 219.189 V 24.547 H 202.1 Z" />
+        <path fill="#000000"
+            d="M 202.1 48.78 L 202.1 46.547 L 219.189 46.547 L 219.189 48.78 Q 219.189 55.567 216.04 60.889 Q 212.891 66.212 207.251 69.141 Q 201.611 72.071 194.678 72.071 A 37.191 37.191 0 0 1 187.609 71.44 Q 180.942 70.148 176.611 66.212 A 19.044 19.044 0 0 1 170.86 56.134 A 28.922 28.922 0 0 1 170.166 49.61 L 187.354 49.61 A 22.459 22.459 0 0 0 187.479 52.08 Q 187.814 55.094 189.038 56.69 Q 190.451 58.533 193.462 58.83 A 12.394 12.394 0 0 0 194.678 58.887 A 7.597 7.597 0 0 0 197.11 58.517 A 6.13 6.13 0 0 0 200.171 56.226 Q 201.684 54.138 202.01 50.742 A 20.564 20.564 0 0 0 202.1 48.78 Z" />
+        <path fill="#000000" d="M 229.98 0 H 279.053 V 13.238 H 247.119 V 24.547 H 229.98 Z" />
+        <path fill="#000000" d="M 229.98 71.095 H 279.053 V 57.911 H 247.119 V 46.547 H 229.98 Z" />
+        <path fill="#000000" d="M 285.939 71.096 H 303.076 V 46.547 H 285.939 Z" />
+        <path fill="#000000" d="M 324.902 71.095 H 343.262 V 70.362 L 330.928 46.547 H 312.629 Z" />
+        <path fill="#000000"
+            d="M 285.939 24.547 L 285.938 0.001 L 313.916 0.001 A 46.032 46.032 0 0 1 321.621 0.605 Q 328.902 1.843 333.691 5.616 A 18.281 18.281 0 0 1 340.646 18.394 A 26.62 26.62 0 0 1 340.82 21.485 V 24.547 Z" />
+    </g>
+</svg>
+            </a>
+        </footer>
+    </main>
+
+    <script src=index.js?v=1700389327046></script>
+    <script type="module">
+        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals?module';
+        onCLS(sendCWV);
+        onFID(sendCWV);
+        onLCP(sendCWV);
+    </script>
+</body>
+
+</html>
