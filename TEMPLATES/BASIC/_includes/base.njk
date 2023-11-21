@@ -9,13 +9,11 @@
 
     <link rel="apple-touch-icon" href="favicon-180x180.png">
 
-    <!--
-    <link rel="stylesheet" href="{{ "style.css" | addCss }}">
-    -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100;400&display=swap" rel="stylesheet">
+    {% if fetched.website.google_font %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
+        <link href="https://fonts.googleapis.com/css2?family={{ fetched.website.google_font}}&display=swap" rel="stylesheet">
+    {% endif %}
 
     {% if page.url == "/" %}
         <title>{{ fetched.articles[0].page_title }}</title>
@@ -30,7 +28,6 @@
     {% endif %}
     
     <meta name="generator" content="{{ eleventy.generator }}">
-    <meta name="keywords" content="counselling">
     <meta name="author" content="{{ fetched.website.author }}">
 
     <meta name="twitter:card" content="summary_large_image">
@@ -45,9 +42,13 @@
     <meta property="og:image" content="{{ fetched.website.favicon_url }}">
 
     <meta name="theme-color" content="#ffffff">
-    <!-- Inlining the styles to prevent poor CLS rating -->
+    <meta name="view-transition" content="same-origin">
+    <!-- Inline css to prevent poor CLS rating -->
     <style>
         {%include 'style.css' %}
+        {% if fetched.website.font_family %}
+            body {font-family: {{ fetched.website.font_family }};}
+        {% endif %}
     </style>
 </head>
 
@@ -88,7 +89,7 @@
         <footer>
              <div class="footer-template">
              </div>
-            <a class="trade-affiliation" target="_blank" href="{{ fetched.website.affiliation_link_url }}">
+            <a class="trade-affiliation" target="_blank" href="{{ fetched.website.affiliation_link_url }}"  aria-label="Trade Affiliation website">
                 <img src="{{ fetched.website.affiliation_link_img }}" alt="Trade affiliation Logo" width="518" height="231"/>
             </a>
             <a class="home" href="index.html">
@@ -101,8 +102,7 @@
                 <span>{% year %}</span>
                 <span>{{ fetched.website.trade_name }}</span>
             </div>
-
-            <a class="developer" href="https://meijerdesign.nl"> 
+            <a class="developer" href="https://meijerdesign.nl" aria-label="Developer website"> 
                 {% include 'developer-icon.svg' %}
             </a>
         </footer>

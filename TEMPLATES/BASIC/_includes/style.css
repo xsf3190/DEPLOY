@@ -34,7 +34,7 @@ button {
 }
   
 body {
-    font-family: Georgia, sans-serif;
+    font-family: Georgia, sans-serif; /* Default font */
     font-size: var(--font-size-m);
     line-height: 1.5;
 }
@@ -183,6 +183,9 @@ nav.text {
         border: none;
         padding: var(--space-xs);
     }
+    nav.image {
+        display: none;
+    }
 }
   
 section > h1 {
@@ -232,7 +235,7 @@ nav.image > ul {
     text-decoration: none;
   }
   
-  nav.image img {
+  nav.image picture {
     grid-area: nav-overlay;
     place-self: center;
   }
@@ -387,4 +390,10 @@ textarea {
     min-height: calc(1.4em * 8);
     resize: vertical;
     overflow-y: scroll;
+}
+
+/* USING VIEW TRANSITIONS */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 2000ms;
 }

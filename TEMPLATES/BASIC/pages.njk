@@ -48,7 +48,10 @@ permalink: /{{ page.path_name | slugify }}.html
                         {% if pageNav.display_order != 1 %}
                         <li>
                             <a href="/{{pageNav.path_name}}.html">
-                                <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" width="{{ pageNav.assets[0].width }}" height="{{ pageNav.assets[0].height }}"/>
+                                <picture>
+                                    <source srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" media="(max-width: 600px)">
+                                    <img src="{{pageNav.assets[0].url}}" alt="{{pageNav.assets[0].alt_text}}" width="{{ pageNav.assets[0].width }}" height="{{ pageNav.assets[0].height }}"/>
+                                </picture>
                                 <span>{{ pageNav.nav_name }}</span>
                             </a>
                         </li>
