@@ -395,5 +395,5 @@ textarea {
 /* USING VIEW TRANSITIONS */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 2000ms;
+  animation-duration: 1000ms;
 }
