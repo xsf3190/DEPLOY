@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="{{ fetched.website.favicon_url }}" type="image/svg+xml">
+
+    <link rel="apple-touch-icon" href="favicon-180x180.png">
+
+    {% if fetched.website.google_font %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
+        <link href="https://fonts.googleapis.com/css2?family={{ fetched.website.google_font}}&display=swap" rel="stylesheet">
+    {% endif %}
+
+    {% if page.url == "/" %}
+        <title>{{ fetched.articles[0].page_title }}</title>
+        <meta name="description" content="{{ fetched.articles[0].page_description }}">
+    {% else %} 
+        {%- for p in fetched.articles -%}
+            {% if "/"+ p.path_name + ".html" == page.url %}
+                <title>{{ p.page_title }}</title>
+                <meta name="description" content="{{ p.page_description }}">
+            {% endif %}
+        {%- endfor -%}
+    {% endif %}
+    
+    <meta name="generator" content="{{ eleventy.generator }}">
+    <meta name="author" content="{{ fetched.website.author }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ fetched.articles[0].page_title }}">
+    <meta name="twitter:description" content="{{ p.page_description }}">
+    <meta name="twitter:image:src" content="{{ fetched.website.favicon_url }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ fetched.articles[0].page_title }}">
+    <meta property="og:description" content="{{ p.page_description }}">
+    <!--<meta property="og:url" content="https://believeintalking.com">-->
+    <meta property="og:image" content="{{ fetched.website.favicon_url }}">
+
+    <meta name="theme-color" content="#ffffff">
+    <meta name="view-transition" content="same-origin">
+    <!-- Inline css to prevent poor CLS rating -->
+    <style>
+        {%include 'style.css' %}
+        {% if fetched.website.font_family %}
+            body {font-family: {{ fetched.website.font_family }};}
+        {% endif %}
+    </style>
+</head>
+
+<body> 
+    <button aria-label="Navigation Menu">
+        {%include 'menu-icon.svg' %}
+    </button>  
+
+    {% if page.url != "/" %}
+        {% set current_page = page.url %}
+    {% else %}    
+        {% set current_page = "index" %}
+    {% endif %}
+
+    <nav class="text">
+        <ul>
+        {%- for p in fetched.articles -%}
+            {% if p.path_name not in current_page %}
+                <li>
+                {% if p.display_order == 1 %}
+                    <a href="/{{p.path_name}}.html">
+                        <img src="{{ fetched.website.favicon_url }}" alt="Website brand logo" width="{{ p.assets[0].width }}" height="{{ p.assets[0].height }}"/>
+                    </a>
+                {% else %}
+                    <a href="/{{p.path_name}}.html">{{ p.nav_name }}</a>
+                {% endif %}
+                </li>
+            {% endif %}
+        {%- endfor -%}
+        </ul>
+    </nav>
+    
+
+    <main>
+
+        {{ content | safe }}
+
+        <footer>
+             <div class="footer-template">
+             </div>
+            <a class="trade-affiliation" target="_blank" href="{{ fetched.website.affiliation_link_url }}"  aria-label="Trade Affiliation website">
+                <img src="{{ fetched.website.affiliation_link_img }}" alt="Trade affiliation Logo" width="518" height="231"/>
+            </a>
+            <a class="home" href="index.html">
+                <img src="{{ fetched.website.favicon_url }}" alt="Website Favicon" width="150" height="150"/>
+            </a>
+            <a class="email" id="email" href="mailTo:{{ fetched.website.contact_email }}">{{ fetched.website.contact_email }}
+            </a>
+            <div class="company">
+                <span>&copy;</span>
+                <span>{% year %}</span>
+                <span>{{ fetched.website.trade_name }}</span>
+            </div>
+            <a class="developer" href="https://meijerdesign.nl" aria-label="Developer website"> 
+                {% include 'developer-icon.svg' %}
+            </a>
+        </footer>
+    </main>
+
+    <script src={{ "index.js" | addScript }}></script>
+    <script type="module">
+        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals?module';
+        onCLS(sendCWV);
+        onFID(sendCWV);
+        onLCP(sendCWV);
+    </script>
+</body>
+
+</html>
