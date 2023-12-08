@@ -8,10 +8,13 @@ module.exports = async function() {
             method: 'GET',
             headers: {"Apex-Session": process.env.APEX_SESSION},
         });
+        if (answer.status !== 200) {
+            console.error("Status: "+answer.status+" .. aborting process.");
+            return null;
+        }
         const result = await answer.json();
-        //console.log(result);
         return result;
     } catch (err) {
-        console.log("Error fetching website data: ", err);
+        console.error("Error fetching website data: ", err);
     }
   };

@@ -1,0 +1,11 @@
+---
+layout: base.njk
+pagination:
+    data: fetched.articles
+    size: 1
+    alias: page
+permalink: /{{ page.path_name | slugify }}.html
+---
+    {% for p in pagination.items %}
+        {{ p.text | safe }}
+    {% endfor %}
