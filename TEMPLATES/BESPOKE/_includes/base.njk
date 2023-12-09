@@ -15,20 +15,22 @@
         <link href="https://fonts.googleapis.com/css2?family={{ fetched.website.google_font}}&display=swap" rel="stylesheet">
     {% endif %}
 
-    <title>{{ fetched.website.page_title }}</title>
-    <meta name="description" content="{{ fetched.website.page_description }}">
+    {% if page.url == "/" %}
+        <title>{{ fetched.articles[0].page_title }}</title>
+        <meta name="description" content="{{ fetched.articles[0].page_description }}">
+    {% endif %}
     
     <meta name="generator" content="{{ eleventy.generator }}">
     <meta name="author" content="{{ fetched.website.author }}">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ fetched.website.page_title }}">
-    <meta name="twitter:description" content="{{ fetched.website.page_description }}">
+    <meta name="twitter:title" content="{{ fetched.articles[0].page_title }}">
+    <meta name="twitter:description" content="{{ fetched.articles[0].page_description }}">
     <meta name="twitter:image:src" content="{{ fetched.website.favicon_url }}">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ fetched.website.page_title }}">
-    <meta property="og:description" content="{{ fetched.website.page_description }}">
+    <meta property="og:title" content="{{ fetched.articles[0].page_title }}">
+    <meta property="og:description" content="{{ fetched.articles[0].page_description }}">
     <meta property="og:image" content="{{ fetched.website.favicon_url }}">
 
     <meta name="theme-color" content="#ffffff">
