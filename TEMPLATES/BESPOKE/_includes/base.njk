@@ -45,13 +45,11 @@
 <body> 
     {{ content | safe }}
 
-    <!-- Hidden input fields referenced in cwv beacon API fetch -->
-    <input type="hidden" name="visit_url" value="{{ fetched.website.visit_url }}"/>
-    <input type="hidden" name="website_id" value="{{ fetched.website.id }}"/>
-
     <script>
         {{ fetched.website.javascript | safe }}
     </script>
+
+    <script src={{ "index.js" | addScript }}></script>
     
     <script type="module">
         import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals?module';
