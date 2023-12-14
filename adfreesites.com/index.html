@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="" type="image/svg+xml">
+
+    <link rel="apple-touch-icon" href="favicon-180x180.png">
+
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto Serif:opsz,wght@8..144,300&display=swap" rel="stylesheet">
+    
+
+    
+        <title>page ttitle for phil website</title>
+        <meta name="description" content="page description for phil website">
+    
+    
+    <meta name="generator" content="Eleventy v2.0.1">
+    <meta name="author" content="Mark Russell Brown">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="page ttitle for phil website">
+    <meta name="twitter:description" content="page description for phil website">
+    <meta name="twitter:image:src" content="">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="page ttitle for phil website">
+    <meta property="og:description" content="page description for phil website">
+    <meta property="og:image" content="">
+
+    <meta name="theme-color" content="#ffffff">
+    <meta name="view-transition" content="same-origin">
+
+    <style>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato"/>
+
+:root {
+  --color-dark: #252525;
+  --color-light: #efefef;
+  --color-primary: #1a8fe3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-light);
+  color: var(--color-dark);
+/*   margin-inline: 1rem; */
+  font-family: "Lato", sans-serif;
+  font-size: clamp(1rem,0.85rem + 0.65vw,1.5rem);
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  object-fit: scale-down;
+}
+
+article {
+  margin-inline: auto;
+  display: grid;
+  grid-template-areas: "intro" "detail-1" "detail-2";
+  gap: 2em;
+}
+
+article, dialog {
+  max-width: min(60ch,100%);
+}
+
+h1 {
+  font-size: 250%;
+  margin: 0;
+  text-align: center;
+}
+
+blockquote {
+  margin: 0 0 5ch;
+  text-align: center;
+}
+
+h2 {
+  line-height: 1.1;
+  margin-block-end: 1ch;
+}
+
+img.float {
+  float: right;
+  border-radius: 2ch;
+  margin: 0 0 1ch 1ch;
+  inline-size: 15ch;
+  height: auto;
+}
+
+@media (min-width: 600px) {
+  article {
+    grid-template-areas: "intro intro" "detail-1 detail-2";
+  }
+}
+
+.intro {
+  grid-area: intro;
+}
+
+.image {
+  grid-area: image;
+}
+
+.detail-1 {
+  grid-area: detail-1;
+}
+
+.detail-2 {
+  grid-area: detail-2;
+}
+
+.detail-1, .detail-2 {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  margin-top: auto;
+  display: inline-flex;
+  gap: 1em;
+  align-items: center;
+  text-decoration-color: var(--color-primary);
+  text-decoration-thickness: 0.3ex;
+  text-underline-offset: 0.3ex;
+  cursor: pointer;
+}
+
+svg {
+  pointer-events: none;
+}
+
+dialog h2 {
+  text-align: center;
+}
+
+dialog p:first-of-type {
+  text-align: end;
+  padding: 0;
+  margin: 0;
+  position: sticky;
+  top: 0;
+}
+
+dialog button {
+  appearance: none;
+  background: transparent;
+  border: none;
+  font-size: 200%;
+  position: relative;
+  top: -0.75ch;
+  right: -0.75ch;
+  cursor: pointer;
+}
+
+pre {
+  font: inherit;
+}
+    </style>
+    
+</head>
+
+<body> 
+        
+        <article>
+  <div class="intro">
+    <h1>Ad-free, cost-free websites</h1>
+    <blockquote>Scalable web application to build websites</blockquote>
+    <h2>Background</h2>
+    <p>
+      If you have ever used popular website or blog building tools under a "free" plan, then you will know that you pay a price in the form of random adverts invading your site. If you find the ads obtrusive, you can upgrade to a paid plan. All of which is perfectly reasonable given the need to fund these free services.
+    </p>
+
+    <p>
+      However, many web-based services are now being provided free of charge. To build a website all you need are a hosting service to serve the content, a CMS (Content Management System) to manage the content and a database to track visits and monitor performance. Ideally, you also want your content served from a fast CDN network.
+    </p>
+  </div>
+
+  <div class="detail-1">
+    <h2>Web Hosting</h2>
+    <p>
+      NETLIFY offer a very generous always-free plan to serve website assets from an ultra-rapid CDN network. The assets (HTML, CSS and JAVASCRIPT files) are uploaded from an always-free GITHUB repository that is linked to NETLIFY.
+    </p>
+    <a href="" data-dialog="dialog-1">
+      Find out more
+    </a>
+  </div>
+
+  <div class="detail-2">
+    <h2>CMS and Database</h2>
+    <p>
+      ORACLE's always-free OCI service is equally generous offering 25GB storage. Content in the form of text and digital media are created / uploaded to the database through a secure web application built using Oracle APEX.
+    </p>
+    <p>
+      Digital media are uploaded through the CMS to an always-free, feature-rich CLOUDINARY service, which has its own rapid CDN network for delivering images, videos and audio files.
+      </p>
+    <a href="" data-dialog="dialog-2">
+      Find out more
+    </a>
+  </div>
+    
+</article>
+
+<dialog class="dialog-1">
+  <p><button type="button" class="close">×</button></p>
+
+  <h2>NETLIFY</h2>
+  <p>
+      
+    </p>
+</dialog>
+
+<dialog class="dialog-2">
+  <p><button type="button" class="close">×</button></p>
+
+  <h2>ORACLE</h2>
+  <p>
+    </p>
+
+</dialog>
+
+        <!-- Hidden input fields referenced in cwv beacon API fetch -->
+        <input type="hidden" name="visit_url" value="https://hl7offzwezq2cal-db202103270929.adb.uk-london-1.oraclecloudapps.com/ords/api/public/page-visit"/>
+        <input type="hidden" name="website_id" value="1403"/>
+        <input type="hidden" name="article_id" value="22824"/>
+    
+
+    <script>
+        document.querySelectorAll("a").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      document.querySelector("dialog."+e.target.dataset.dialog).showModal();
+    });
+});
+
+document.querySelectorAll("dialog .close").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.target.closest("dialog").close();
+    });
+});
+
+const images = document.querySelectorAll('[data-src]');
+const config = {rootMargin: '0px 0px 50px 0px',threshold: 0};
+
+let observer = new IntersectionObserver(function (entries, self) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // console.log(`Image ${entry.target.src} is in the viewport!`);
+      preloadImage(entry.target);
+      // Stop watching and load the image
+      self.unobserve(entry.target);
+    }
+  });
+}, config);
+
+images.forEach(image => {
+  observer.observe(image);
+});
+
+const preloadImage = (img) => {
+  const src = img.getAttribute('data-src');
+  if (!src) {
+    return; 
+  }
+  img.src = src;
+}
+    </script>
+
+    <script src=index.js?v=1702570721879></script>
+    
+    <script type="module">
+        import {onCLS, onFID, onLCP} from 'https://unpkg.com/web-vitals?module';
+        onCLS(sendCWV);
+        onFID(sendCWV);
+        onLCP(sendCWV);
+    </script>
+</body>
+
+</html>
