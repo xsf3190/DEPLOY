@@ -5,7 +5,8 @@
   "main": "no",
   "scripts": {
     "local": "npx @11ty/eleventy --serve --port=8081",
-    "dev": "tsc ./TEMPLATES/BASIC/index.ts --outFile ./TEMPLATES/BASIC/index.js -w"
+    "dev": "tsc ./TEMPLATES/BASIC/index.ts --outFile ./TEMPLATES/BASIC/index.js -w",
+    "dev2": "tsc ./TEMPLATES/CUSTOM/index.ts --outFile ./TEMPLATES/CUSTOM/index.js -w"
   },
   "repository": {
     "type": "git",
