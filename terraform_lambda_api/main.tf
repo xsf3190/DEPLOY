@@ -1,4 +1,4 @@
-iteterraform {
+terraform {
   cloud {
     organization = "Florent"
 
