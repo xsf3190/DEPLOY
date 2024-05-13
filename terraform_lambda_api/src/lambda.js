@@ -42,7 +42,7 @@ export const handler = async (event) => {
       Body: {
         Text: {
           Charset: "UTF-8",
-          Data: `Dear User,\n\nYou got a new message:\n\n - Name: ${e.name}\n - Email: ${e.email}\n\n\n----- Start Message -----\n\n${e.message}\n\n\n\n ------ End Message ------\n\n Kind Regards,\n\nFlorent`,
+          Data: `Hello,\n\nPlease find here the details of the Contact Form sent from your website:\n\n - Name: ${e.name}\n - Email: ${e.email}\n\n\n----- Start Message -----\n\n${e.message}\n\n\n\n ------ End Message ------\n\n Kind Regards,\n\nadfreesites.com`,
         },
       },
       Subject: {
