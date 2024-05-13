@@ -1,4 +1,4 @@
-terraform {
+iteterraform {
   cloud {
     organization = "Florent"
 
@@ -27,7 +27,7 @@ variable "PUBLIC_KEY" {
 
 # ---- SES ----
 resource "aws_ses_domain_identity" "domain_identity" {
-  domain = "markrussellbrown.com"
+  domain = "adfreesites.com"
 }
 
 resource "aws_ses_domain_dkim" "domain_identity_dkim" {
