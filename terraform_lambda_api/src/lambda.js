@@ -23,10 +23,10 @@ export const handler = async (event) => {
   if (event.body?.length > 550) throw new Error("bad request");
 
   const e = JSON.parse(event.body);
-  if (!e.name || !e.email || !e.message || !e.contactEmail || !e.signatureContactEmail) throw new Error("bad request");
+  if (!e.name || !e.email || !e.message || !e.contactEmail || !e.signatureContactEmail) || !e.url throw new Error("bad request");
 
   const algorithm = "SHA256";
-  const eBuf = Buffer.from(e.contactEmail);
+  const eBuf = Buffer.from(e.contactEmail+e.url);
   const sBuf = Buffer.from(e.signatureContactEmail, "base64");
   if (!crypto.verify(algorithm, eBuf, pKey, sBuf)) throw new Error("bad request");
 
@@ -47,7 +47,7 @@ export const handler = async (event) => {
       },
       Subject: {
         Charset: "UTF-8",
-        Data: process.env.SUBJECT || "No subject defined",
+        Data: `CONTACT FROM ${e.url}`,
       },
     },
     Source: process.env.FROM_EMAIL,
