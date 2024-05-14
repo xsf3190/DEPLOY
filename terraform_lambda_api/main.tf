@@ -182,61 +182,6 @@ resource "aws_lambda_permission" "api_gw" {
   source_arn = "${aws_apigatewayv2_api.lambda.execution_arn}/*/*"
 }
 
-# ---- WAF ---- 
-resource "aws_wafv2_web_acl" "waf_acl" {
-  name  = "waf-api-gateway"
-  scope = "REGIONAL"
-
-  default_action {
-    allow {
-    }
-  }
-  
-  custom_response_body {
-    key          = "blocked_request_custom_response"
-    content      = "{\n    \"error\":\"Too Many Requests.\"\n}"
-    content_type = "APPLICATION_JSON"
-  }
-
-  visibility_config {
-    cloudwatch_metrics_enabled = true
-    metric_name                = "WAF_RateLimit"
-    sampled_requests_enabled   = true
-  }
-
-  rule {
-    name     = "RateLimit"
-    priority = 1
-
-    action {
-      block {
-        custom_response {
-          custom_response_body_key = "blocked_request_custom_response"
-          response_code            = 429
-        }
-      }
-    }
-
-    statement {
-      rate_based_statement {
-        aggregate_key_type = "IP"
-        limit              = 100
-      }
-    }
-
-    visibility_config {
-      cloudwatch_metrics_enabled = true
-      metric_name                = "RateLimit"
-      sampled_requests_enabled   = true
-    }
-  }
-}
-
-resource "aws_wafv2_web_acl_association" "waf_api_association" {
-  resource_arn = "arn:aws:apigateway:${aws.region}::/restapis/${aws_apigatewayv2_api.lambda.id}/stages/${aws_apigatewayv2_stage.lambda.name}"
-  web_acl_arn  = aws_wafv2_web_acl.waf_acl.arn
-}
-
 output "invoke_url" {
   value = aws_apigatewayv2_stage.lambda.invoke_url
 }
