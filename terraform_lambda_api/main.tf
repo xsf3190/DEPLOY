@@ -34,10 +34,6 @@ resource "aws_ses_domain_dkim" "domain_identity_dkim" {
   domain = aws_ses_domain_identity.domain_identity.domain
 }
 
-# resource "aws_ses_domain_identity_verification" "domain_verification" {
-#   domain = aws_ses_domain_identity.domain_identity.id
-# }
-
 # ---- Lambda ----
 variable "src_lambda" {
   default = "src"
@@ -113,8 +109,6 @@ resource "aws_lambda_function" "test_lambda" {
 }
 
 # ---- API_GATEWAY ---- 
-# https://developer.hashicorp.com/terraform/tutorials/aws/lambda-api-gateway
-
 resource "aws_apigatewayv2_api" "lambda" {
   name          = "serverless_lambda_gw"
   protocol_type = "HTTP"
@@ -132,6 +126,11 @@ resource "aws_apigatewayv2_stage" "lambda" {
 
   name        = "serverless_lambda_stage"
   auto_deploy = true
+
+  default_route_settings {
+    throttling_burst_limit = 1
+    throttling_rate_limit = 1
+  }
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gw.arn
@@ -180,6 +179,61 @@ resource "aws_lambda_permission" "api_gw" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.lambda.execution_arn}/*/*"
+}
+
+# ---- WAF ---- 
+resource "aws_wafv2_web_acl" "waf_acl" {
+  name  = "waf-api-gateway"
+  scope = "REGIONAL"
+
+  default_action {
+    allow {
+    }
+  }
+  
+  custom_response_body {
+    key          = "blocked_request_custom_response"
+    content      = "{\n    \"error\":\"Too Many Requests.\"\n}"
+    content_type = "APPLICATION_JSON"
+  }
+
+  visibility_config {
+    cloudwatch_metrics_enabled = true
+    metric_name                = "WAF_RateLimit"
+    sampled_requests_enabled   = true
+  }
+
+  rule {
+    name     = "RateLimit"
+    priority = 1
+
+    action {
+      block {
+        custom_response {
+          custom_response_body_key = "blocked_request_custom_response"
+          response_code            = 429
+        }
+      }
+    }
+
+    statement {
+      rate_based_statement {
+        aggregate_key_type = "IP"
+        limit              = 1
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "RateLimit"
+      sampled_requests_enabled   = true
+    }
+  }
+}
+
+resource "aws_wafv2_web_acl_association" "waf_api_association" {
+  resource_arn = aws_apigatewayv2_stage.lambda.arn
+  web_acl_arn  = aws_wafv2_web_acl.waf_acl.arn
 }
 
 output "invoke_url" {
