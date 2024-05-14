@@ -17,6 +17,11 @@ provider "aws" {
   region = "eu-central-1"
 }
 
+provider "aws" {
+  alias = "east"
+  region = "us-east-1"
+}
+
 variable "FROM_EMAIL" {
   type = string
 }
@@ -233,7 +238,7 @@ resource "aws_wafv2_web_acl" "waf_acl" {
 }
 
 resource "aws_wafv2_web_acl_association" "waf_api_association" {
-  depends_on = [ aws_apigatewayv2_api.lambda ]
+  provider = aws.east
   resource_arn = aws_apigatewayv2_stage.lambda.arn
   web_acl_arn  = aws_wafv2_web_acl.waf_acl.arn
 }
