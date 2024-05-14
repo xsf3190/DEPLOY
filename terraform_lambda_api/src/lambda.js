@@ -23,7 +23,7 @@ export const handler = async (event) => {
   if (event.body?.length > 550) throw new Error("bad request");
 
   const e = JSON.parse(event.body);
-  if (!e.name || !e.email || !e.message || !e.contactEmail || !e.signatureContactEmail) || !e.url throw new Error("bad request");
+  if (!e.name || !e.email || !e.message || !e.contactEmail || !e.signatureContactEmail || !e.url) throw new Error("bad request");
 
   const algorithm = "SHA256";
   const eBuf = Buffer.from(e.contactEmail+e.url);
