@@ -1,8 +1,7 @@
-import { SESClient } from "@aws-sdk/client-ses";
-const sesClient = new SESClient({ region: "eu-central-1" });
-import { SendEmailCommand } from "@aws-sdk/client-ses";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
-var response = {
+const sesClient = new SESClient({ region: "eu-central-1" });
+const response = {
   "statusCode": 200,
   "headers": {
     "Content-Type": "application/json",
@@ -15,7 +14,7 @@ export const handler = async (event) => {
   if (event.body?.length > 550) throw new Error("bad request");
 
   const e = JSON.parse(event.body);
-  if ( !e.contactEmail || !e.body || !e.subject || !e.sourceEmail) throw new Error("bad request");
+  if (!e.contactEmail || !e.body || !e.subject || !e.sourceEmail) throw new Error("bad request");
 
   const params = new SendEmailCommand({
     Destination: {
@@ -27,9 +26,11 @@ export const handler = async (event) => {
     },
     Message: {
       Body: {
+        Text: {
+          Data: "STRING_VALUE",
+        },
         Html: {
           Data: e.body,
-          Charset: "UTF-8",
         }
       },
       Subject: {
