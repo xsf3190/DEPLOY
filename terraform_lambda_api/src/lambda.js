@@ -26,9 +26,6 @@ export const handler = async (event) => {
     },
     Message: {
       Body: {
-        Text: {
-          Data: "STRING_VALUE",
-        },
         Html: {
           Data: e.body,
         }
