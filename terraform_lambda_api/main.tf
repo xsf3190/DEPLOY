@@ -17,14 +17,6 @@ provider "aws" {
   region = "eu-central-1"
 }
 
-variable "FROM_EMAIL" {
-  type = string
-}
-
-variable "PUBLIC_KEY" {
-  type = string
-}
-
 # ---- SES ----
 resource "aws_ses_domain_identity" "domain_identity" {
   domain = "adfreesites.com"
@@ -98,14 +90,6 @@ resource "aws_lambda_function" "test_lambda" {
   handler          = "lambda.handler"
   source_code_hash = base64sha256(file("./${var.src_lambda}/lambda.js"))
   runtime          = "nodejs18.x"
-
-  environment {
-    variables = {
-      FROM_EMAIL = "${var.FROM_EMAIL}"
-      SUBJECT    = "Email notification"
-      PUBLIC_KEY = "${var.PUBLIC_KEY}"
-    }
-  }
 }
 
 # ---- API_GATEWAY ---- 
@@ -203,14 +187,6 @@ resource "aws_api_gateway_usage_plan_key" "deploy-apigw-usage-plan-key" {
 
 output "invoke_url" {
   value = aws_apigatewayv2_stage.lambda.invoke_url
-}
-
-output "from_email" {
-  value = var.FROM_EMAIL
-}
-
-output "public_key" {
-  value = var.PUBLIC_KEY
 }
 
 output "ses_dkim_tokens" {
