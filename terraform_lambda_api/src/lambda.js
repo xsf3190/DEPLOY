@@ -15,7 +15,7 @@ export const handler = async (event) => {
   if (event.body?.length > 550) throw new Error("bad request");
 
   const e = JSON.parse(event.body);
-  if ( !e.contactEmail || !e.subject || !e.sourceEmail) throw new Error("bad request");
+  if ( !e.contactEmail || !e.body || !e.subject || !e.sourceEmail) throw new Error("bad request");
 
   const params = new SendEmailCommand({
     Destination: {
