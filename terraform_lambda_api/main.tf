@@ -182,6 +182,25 @@ resource "aws_lambda_permission" "api_gw" {
   source_arn = "${aws_apigatewayv2_api.lambda.execution_arn}/*/*"
 }
 
+resource "aws_api_gateway_api_key" "gateway_key" {
+  name = "gateway_key"
+}
+
+resource "aws_api_gateway_usage_plan" "usage_plan" {
+  name = "usage_plan_lambda"
+
+  api_stages {
+    api_id = aws_apigatewayv2_api.lambda.id
+    stage  = "serverless_lambda_stage"
+  }
+}
+
+resource "aws_api_gateway_usage_plan_key" "deploy-apigw-usage-plan-key" {
+  key_id        = aws_api_gateway_api_key.gateway_key.id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.usage_plan.id
+}
+
 output "invoke_url" {
   value = aws_apigatewayv2_stage.lambda.invoke_url
 }
@@ -196,4 +215,8 @@ output "public_key" {
 
 output "ses_dkim_tokens" {
   value = toset(aws_ses_domain_dkim.domain_identity_dkim.dkim_tokens[*])
+}
+
+output "api-key" {
+  value = aws_api_gateway_api_key.gateway_key.value
 }
