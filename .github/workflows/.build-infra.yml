@@ -5,9 +5,6 @@ on:
     types: trigger_build_infra
 permissions:
   contents: write
-env:
-  TF_VAR_FROM_EMAIL: ${{ github.event.client_payload.from_email }}
-  TF_VAR_PUBLIC_KEY: ${{ github.event.client_payload.public_key }}
 jobs:
   build_page:
     name: Build Infra
