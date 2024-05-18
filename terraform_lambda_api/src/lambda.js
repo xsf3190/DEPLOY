@@ -23,8 +23,7 @@ const errorResponse = (error) => {
 
 export const handler = async (event) => {
   try {
-    if (event.body?.length > 550) return errorResponse("body to long");
-
+  
     const e = JSON.parse(event.body);
     if (!e.contactEmail || !e.body || !e.subject || !e.sourceEmail) {
       return errorResponse("body does not contain the required fields")
