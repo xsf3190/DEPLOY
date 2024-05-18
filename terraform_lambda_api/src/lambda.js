@@ -16,7 +16,7 @@ const errorResponse = (error) => {
     "headers": {
       "Content-Type": "application/json",
     },
-    "body": `{ \"error\": ${error} }`
+    "body": `{ \"error\": "${error}" }`
   }
   return response;
 }
