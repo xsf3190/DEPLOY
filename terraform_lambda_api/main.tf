@@ -32,6 +32,11 @@ variable "src_lambda" {
   type    = string
 }
 
+variable "stage_lamda" {
+  default = "defaultStage"
+  type    = string
+}
+
 data "aws_iam_policy_document" "assume" {
   statement {
     effect = "Allow"
@@ -82,7 +87,7 @@ data "archive_file" "lambda" {
   output_path = "lambda_function_payload.zip"
 }
 
-resource "aws_lambda_function" "test_lambda" {
+resource "aws_lambda_function" "lambda_function" {
 
   filename         = "lambda_function_payload.zip"
   function_name    = "lambda_function_name"
@@ -92,67 +97,8 @@ resource "aws_lambda_function" "test_lambda" {
   runtime          = "nodejs18.x"
 }
 
-# ---- API_GATEWAY ---- 
-resource "aws_apigatewayv2_api" "lambda" {
-  name          = "serverless_lambda_gw"
-  protocol_type = "HTTP"
-
-  cors_configuration {
-    allow_origins = ["*"]
-    allow_methods = ["POST"]
-    allow_headers = ["*"]
-    max_age       = 300
-  }
-}
-
-resource "aws_apigatewayv2_stage" "lambda" {
-  api_id = aws_apigatewayv2_api.lambda.id
-  
-
-  name        = "serverless_lambda_stage"
-  auto_deploy = true
-
-  default_route_settings {
-    throttling_burst_limit = 1
-    throttling_rate_limit = 1
-  }
-
-  access_log_settings {
-    destination_arn = aws_cloudwatch_log_group.api_gw.arn
-
-    format = jsonencode({
-      requestId               = "$context.requestId"
-      sourceIp                = "$context.identity.sourceIp"
-      requestTime             = "$context.requestTime"
-      protocol                = "$context.protocol"
-      httpMethod              = "$context.httpMethod"
-      resourcePath            = "$context.resourcePath"
-      routeKey                = "$context.routeKey"
-      status                  = "$context.status"
-      responseLength          = "$context.responseLength"
-      integrationErrorMessage = "$context.integrationErrorMessage"
-      }
-    )
-  }
-}
-
-resource "aws_apigatewayv2_integration" "test_lambda" {
-  api_id = aws_apigatewayv2_api.lambda.id
-
-  integration_uri    = aws_lambda_function.test_lambda.invoke_arn
-  integration_type   = "AWS_PROXY"
-  integration_method = "POST"
-}
-
-resource "aws_apigatewayv2_route" "test_lambda" {
-  api_id = aws_apigatewayv2_api.lambda.id
-
-  route_key = "POST /"
-  target    = "integrations/${aws_apigatewayv2_integration.test_lambda.id}"
-}
-
 resource "aws_cloudwatch_log_group" "api_gw" {
-  name = "/aws/api_gw/${aws_apigatewayv2_api.lambda.name}"
+  name = "/aws/api_gw/${aws_api_gateway_rest_api.api.name}"
 
   retention_in_days = 30
 }
@@ -160,40 +106,84 @@ resource "aws_cloudwatch_log_group" "api_gw" {
 resource "aws_lambda_permission" "api_gw" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.test_lambda.function_name
+  function_name = aws_lambda_function.lambda_function.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_apigatewayv2_api.lambda.execution_arn}/*/*"
+  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
 }
 
-resource "aws_api_gateway_api_key" "gateway_key" {
-  name = "gateway_key"
+# ---- API_GATEWAY ---- 
+resource "aws_api_gateway_rest_api" "api" {
+  name = "api"
+  api_key_source = "HEADER"
 }
 
-resource "aws_api_gateway_usage_plan" "usage_plan" {
-  name = "usage_plan_lambda"
+resource "aws_api_gateway_resource" "resource" {
+  path_part   = "adfreesites"
+  parent_id   = aws_api_gateway_rest_api.api.root_resource_id
+  rest_api_id = aws_api_gateway_rest_api.api.id
+}
+
+resource "aws_api_gateway_method" "method" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.resource.id
+  http_method   = "POST"
+  authorization = "NONE"
+  api_key_required = true
+}
+
+resource "aws_api_gateway_integration" "integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.resource.id
+  http_method             = aws_api_gateway_method.method.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambda_function.invoke_arn
+}
+
+resource "aws_api_gateway_deployment" "deployment" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+}
+
+resource "aws_api_gateway_stage" "stage" {
+  stage_name = "send"
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  deployment_id = aws_api_gateway_deployment.deployment.id
+}
+
+resource "aws_api_gateway_usage_plan" "usageplan" {
+  name = "usageplan"
 
   api_stages {
-    api_id = aws_apigatewayv2_api.lambda.id
-    stage  = "serverless_lambda_stage"
+    api_id = aws_api_gateway_rest_api.api.id
+    stage  = aws_api_gateway_stage.stage.stage_name
+  }
+
+  throttle_settings {
+    burst_limit = 2
+    rate_limit  = 10
   }
 }
 
-resource "aws_api_gateway_usage_plan_key" "deploy-apigw-usage-plan-key" {
-  key_id        = aws_api_gateway_api_key.gateway_key.id
+resource "aws_api_gateway_api_key" "key" {
+  name = "api-key"
+}
+
+resource "aws_api_gateway_usage_plan_key" "main" {
+  key_id        = aws_api_gateway_api_key.key.id
   key_type      = "API_KEY"
-  usage_plan_id = aws_api_gateway_usage_plan.usage_plan.id
+  usage_plan_id = aws_api_gateway_usage_plan.usageplan.id
 }
 
 output "invoke_url" {
-  value = aws_apigatewayv2_stage.lambda.invoke_url
+  value = aws_api_gateway_deployment.deployment.invoke_url
 }
 
 output "ses_dkim_tokens" {
   value = toset(aws_ses_domain_dkim.domain_identity_dkim.dkim_tokens[*])
 }
 
-output "api-key" {
-  value = aws_api_gateway_api_key.gateway_key.value
+output "api_key" {
+  value = aws_api_gateway_api_key.key.value
   sensitive = true
 }
