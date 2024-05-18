@@ -55,7 +55,9 @@ export const handler = async (event) => {
       ],
     });
 
-    return sesClient.send(params).then(() => response);
+    return sesClient.send(params).then(() => response).catch((err)=> {
+      return errorResponse(err)
+    });
   } catch (err) {
     return errorResponse(err);
   }
