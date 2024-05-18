@@ -1,7 +1,7 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 const sesClient = new SESClient({ region: "eu-central-1" });
-const response = {
+var response = {
   "statusCode": 200,
   "headers": {
     "Content-Type": "application/json",
@@ -40,10 +40,14 @@ export const handler = async (event) => {
     ],
   });
 
-  try {
-    return sesClient.send(params).then(() => response);
-  } catch (err) {
-    console.log(err)
-    return err;
-  }
+  return sesClient.send(params).then(() => response).catch((err) => {
+    response = {
+      "statusCode": 500,
+      "headers": {
+        "Content-Type": "application/json",
+      },
+      "body": `{ \"error\": ${err} }`
+    }
+    return response;
+  });
 };
