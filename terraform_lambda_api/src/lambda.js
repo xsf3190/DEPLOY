@@ -1,6 +1,7 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 const sesClient = new SESClient({ region: "eu-central-1" });
+
 var response = {
   "statusCode": 200,
   "headers": {
@@ -9,12 +10,25 @@ var response = {
   "body": "{ \"result\": \"Send email\"\n}"
 }
 
+const errorResponse = (error) => {
+  const response = {
+    "statusCode": 500,
+    "headers": {
+      "Content-Type": "application/json",
+    },
+    "body": `{ \"error\": ${error} }`
+  }
+  return response;
+}
+
 export const handler = async (event) => {
 
-  if (event.body?.length > 550) throw new Error("bad request");
+  if (event.body?.length > 550) return errorResponse("body to long");
 
   const e = JSON.parse(event.body);
-  if (!e.contactEmail || !e.body || !e.subject || !e.sourceEmail) throw new Error("bad request");
+  if (!e.contactEmail || !e.body || !e.subject || !e.sourceEmail) {
+    return errorResponse("body does not contain the required fields")
+  }
 
   const params = new SendEmailCommand({
     Destination: {
@@ -28,6 +42,7 @@ export const handler = async (event) => {
       Body: {
         Html: {
           Data: e.body,
+          Charset: "UTF-8",
         }
       },
       Subject: {
@@ -41,13 +56,6 @@ export const handler = async (event) => {
   });
 
   return sesClient.send(params).then(() => response).catch((err) => {
-    response = {
-      "statusCode": 500,
-      "headers": {
-        "Content-Type": "application/json",
-      },
-      "body": `{ \"error\": ${err} }`
-    }
-    return response;
+    return errorResponse(err);
   });
 };
