@@ -22,40 +22,41 @@ const errorResponse = (error) => {
 }
 
 export const handler = async (event) => {
+  try {
+    if (event.body?.length > 550) return errorResponse("body to long");
 
-  if (event.body?.length > 550) return errorResponse("body to long");
+    const e = JSON.parse(event.body);
+    if (!e.contactEmail || !e.body || !e.subject || !e.sourceEmail) {
+      return errorResponse("body does not contain the required fields")
+    }
 
-  const e = JSON.parse(event.body);
-  if (!e.contactEmail || !e.body || !e.subject || !e.sourceEmail) {
-    return errorResponse("body does not contain the required fields")
-  }
-
-  const params = new SendEmailCommand({
-    Destination: {
-      CcAddresses: [
-      ],
-      ToAddresses: [
-        e.contactEmail,
-      ],
-    },
-    Message: {
-      Body: {
-        Html: {
-          Data: e.body,
+    const params = new SendEmailCommand({
+      Destination: {
+        CcAddresses: [
+        ],
+        ToAddresses: [
+          e.contactEmail,
+        ],
+      },
+      Message: {
+        Body: {
+          Html: {
+            Data: e.body,
+            Charset: "UTF-8",
+          }
+        },
+        Subject: {
           Charset: "UTF-8",
-        }
+          Data: e.subject,
+        },
       },
-      Subject: {
-        Charset: "UTF-8",
-        Data: e.subject,
-      },
-    },
-    Source: e.sourceEmail,
-    ReplyToAddresses: [
-    ],
-  });
+      Source: e.sourceEmail,
+      ReplyToAddresses: [
+      ],
+    });
 
-  return sesClient.send(params).then(() => response).catch((err) => {
+    return sesClient.send(params).then(() => response);
+  } catch (err) {
     return errorResponse(err);
-  });
+  }
 };
