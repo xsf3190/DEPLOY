@@ -176,7 +176,7 @@ resource "aws_api_gateway_usage_plan_key" "main" {
 }
 
 output "invoke_url" {
-  value = aws_api_gateway_deployment.deployment.invoke_url
+  value = aws_api_gateway_stage.stage.invoke_url
 }
 
 output "ses_dkim_tokens" {
